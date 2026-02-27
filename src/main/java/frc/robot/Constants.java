@@ -92,9 +92,7 @@ public final class Constants {
 
     public static final int pivotId = 18;
     public static final int beltId = 19;
-    public static final int climbRightId = 17;
-    public static final int climbLeftId = 24;
-    public static final int climbGrabberId = 25;
+    public static final int climbId = 17;
     public static final int hoodId = 26;
   }
 

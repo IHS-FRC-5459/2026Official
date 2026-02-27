@@ -11,16 +11,13 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
-import frc.robot.Constants.Sensors.Ports;
 import org.littletonrobotics.junction.Logger;
 
 public class Climb extends SubsystemBase {
-  TalonFX left, right, grab;
-  Encoder m_encoder;
+  TalonFX motor;
+  // Encoder m_encoder;
   double goal = 0;
   double kMaxVelocity = 1;
   double kS = 1;
@@ -41,12 +38,10 @@ public class Climb extends SubsystemBase {
   private final String loggingPrefix = "subsystems/climb/";
   /** Creates a new Climb. */
   public Climb() {
-    left = new TalonFX(Motors.climbLeftId, canbus);
-    right = new TalonFX(Motors.climbRightId, canbus);
-    grab = new TalonFX(Motors.climbGrabberId, canbus);
-    m_encoder = new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
-    m_encoder.setDistancePerPulse(1.0 / 360.0 * 2.0 * Math.PI * 1.5);
-    resetEncoder();
+    motor = new TalonFX(Motors.climbId, canbus);
+    // m_encoder = new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
+    // m_encoder.setDistancePerPulse(1.0 / 360.0 * 2.0 * Math.PI * 1.5);
+    // resetEncoder();
     distanceCacheFront =
         new DistanceCaching(
             Sensors.Distance.frontLeftId,
@@ -63,8 +58,8 @@ public class Climb extends SubsystemBase {
   }
 
   public double getEncoderDistance() {
-    Logger.recordOutput(loggingPrefix + "encoder", -m_encoder.getDistance());
-    return -m_encoder.getDistance();
+    // Logger.recordOutput(loggingPrefix + "encoder", -m_encoder.getDistance());
+    return 0; // -m_encoder.getDistance();
   }
 
   public void setGoal(double goal) {
@@ -81,18 +76,12 @@ public class Climb extends SubsystemBase {
   }
 
   private void setVoltage(double volts) {
-    left.setVoltage(volts);
-    right.setVoltage(-volts);
+    // motor.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
   }
 
   public void resetEncoder() {
-    m_encoder.reset();
-  }
-
-  public void setGrab(double volts) {
-    grab.setVoltage(volts);
-    Logger.recordOutput(loggingPrefix + "grabVolts", volts);
+    // m_encoder.reset();
   }
 
   public DistanceCaching getDistanceCacheFront() {
@@ -112,16 +101,5 @@ public class Climb extends SubsystemBase {
   @Override
   public void periodic() {
     updateMotorOutput();
-    Logger.recordOutput(loggingPrefix + "hasStoppedGrabber", hasStoppedGrabber);
-    // This method will be called once per scheduler run
-    if (!hasStoppedGrabber
-        && Timer.getFPGATimestamp()
-            > 25) { // Not getMatchTime so it doesnt do weird stuff during auto
-      setGrab(0);
-      hasStoppedGrabber = true;
-      Logger.recordOutput(
-          loggingPrefix + "hasStoppedGrabber",
-          true); // This shouldn't be neccesary, but jut in case :)
-    }
   }
 }
