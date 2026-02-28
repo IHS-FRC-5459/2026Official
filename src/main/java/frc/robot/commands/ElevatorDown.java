@@ -12,10 +12,7 @@ import frc.robot.subsystems.LED;
 public class ElevatorDown extends Command {
   Climb s_climb;
   LED s_led;
-  private final double goalTop = 10;
-  private final double grabVolts = 1;
-  private final double grabHoldVolts = 0.2;
-  /** Creates a new ClimbUp. */
+  /** Creates a new ClimbDown. */
   public ElevatorDown(LED s_led, Climb s_climb) {
     addRequirements(s_climb);
     this.s_climb = s_climb;
@@ -26,18 +23,21 @@ public class ElevatorDown extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    s_climb.setGoal(goalTop);
-    s_led.setElevatorGoingDown(true);
+    s_led.setElevatorGoingUp(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    s_climb.setGoal(-6);
+    // s_climb.setVoltage(SmartDashboard.getNumber("climbVolts", 0));
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_led.setElevatorGoingDown(false);
+    s_led.setElevatorGoingUp(true);
+    s_climb.setVoltage(0);
   }
 
   // Returns true when the command should end.

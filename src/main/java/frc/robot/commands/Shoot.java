@@ -9,6 +9,7 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Flywheel;
@@ -105,22 +106,22 @@ public class Shoot extends Command {
     // s_hood.setGoal(interpolatedHoodGoal);
     // s_flywheel.setGoal(interpolatedFlywheelGoal);
     // Agitation
-    long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
-    if (timeSinceLastAgitation > agitationIntervalTime) {
-      lastAgitation = System.currentTimeMillis();
-      s_pivot.goOpposite();
-    }
+    // long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
+    // if (timeSinceLastAgitation > agitationIntervalTime) {
+    //   lastAgitation = System.currentTimeMillis();
+    //   s_pivot.goOpposite();
+    // }
+    s_pivot.setGoal(0);
     s_belt.setSpeed(beltPower);
-    s_flywheel.setGoal(38);
-    s_intake.setSpeed(intakePower);
+    s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
     s_indexer.setVoltage(indexerVolts);
-    s_hood.setGoal(0);
+    s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_pivot.goDown();
+    s_pivot.setGoal(90);
     s_belt.setSpeed(0);
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);

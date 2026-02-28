@@ -7,30 +7,32 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
+import frc.robot.Constants.Sensors.Ports;
 import org.littletonrobotics.junction.Logger;
 
 public class Pivot extends SubsystemBase {
   private final TalonFX pivotController;
-  // private final Encoder pivotEncoder;
+  private Encoder pivotEncoder;
   private final ArmFeedforward pivotFeedforward;
   private final PIDController pivotPID;
   private double pivotSetpoint = 0;
   private final double setpointDeadspace = 10;
   private final double downSetpoint = 0;
   private final double upSetpoint = 100;
-
   private final String loggingPrefix = "subsystems/pivot/";
 
   public Pivot() {
     pivotController = new TalonFX(Motors.pivotId);
-    // pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
-    pivotFeedforward = new ArmFeedforward(0, 0.4, 0);
-    pivotPID = new PIDController(4, 1, 0.002);
-    // pivotEncoder.setDistancePerPulse(0.02);
+    pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
+    pivotFeedforward = new ArmFeedforward(0, 0.7, 0);
+    pivotPID = new PIDController(1.2, 0.4, 0);
+    pivotEncoder.setDistancePerPulse(0.02 * (90 / 10.45));
     // This happends to be about encoder dist = degrees of pivot
-    // pivotEncoder.reset();
+    pivotEncoder.reset();
   }
 
   public void setGoal(double goal) {
@@ -43,26 +45,34 @@ public class Pivot extends SubsystemBase {
   }
 
   public void setVoltage(double volts) {
-    pivotController.setVoltage(-volts);
+    pivotController.setVoltage(volts);
   }
 
   public double getVoltage() {
-    return -pivotController.get();
+    return pivotController.get();
   }
 
   public double getEncoderDist() {
-    return 0; // -pivotEncoder.getDistance();
+    return (pivotEncoder.getDistance()) + 90;
   }
 
   public double getEncoderRadians() {
     return getEncoderDist() * Math.PI / 180;
   }
 
+  public void resetPID() {
+    pivotPID.reset();
+  }
+
+  public void resetEncoder() {
+    pivotEncoder.reset();
+  }
+
   public void updateMotorOutput() {
     double pidVolts = pivotPID.calculate(getEncoderRadians());
     double ffVolts = pivotFeedforward.calculate(getEncoderRadians(), 0);
     double volts = pidVolts + ffVolts;
-    pivotController.setVoltage(0); // volts);
+    pivotController.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "pidVolts: ", pidVolts);
     Logger.recordOutput(loggingPrefix + "ffVolts ", ffVolts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
@@ -95,11 +105,22 @@ public class Pivot extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // pivotPID.setP(SmartDashboard.getNumber("pivotPID_P", 0));
+    // pivotPID.setI(SmartDashboard.getNumber("pivotPID_I", 0));
+    // pivotPID.setD(SmartDashboard.getNumber("pivotPID_D", 0));
+    // pivotFeedforward.setKg(SmartDashboard.getNumber("pivotFF_G", 0));
+    Logger.recordOutput(loggingPrefix + "kP", pivotPID.getP());
+    Logger.recordOutput(loggingPrefix + "kI", pivotPID.getI());
+    Logger.recordOutput(loggingPrefix + "kD", pivotPID.getD());
+    Logger.recordOutput(loggingPrefix + "kG", pivotFeedforward.getKg());
+
     // This method will be called once per scheduler run
     Logger.recordOutput(loggingPrefix + "EncoderReading", getEncoderDist());
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     Logger.recordOutput(loggingPrefix + "isAtSetpoint", isAtSetpoint());
     Logger.recordOutput(loggingPrefix + "error", pivotPID.getError());
+    setGoal(SmartDashboard.getNumber("pivotGoal", 0));
     updateMotorOutput();
+    // setVoltage(SmartDashboard.getNumber("pivotGoal", 0));
   }
 }

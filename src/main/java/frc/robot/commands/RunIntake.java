@@ -7,17 +7,20 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.Pivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class RunIntake extends Command {
   private Intake s_intake;
   private LED s_led;
+  private Pivot s_pivot;
   /** Creates a new Intake. */
-  public RunIntake(LED s_led, Intake s_intake) {
+  public RunIntake(LED s_led, Intake s_intake, Pivot s_pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_intake);
+    addRequirements(s_intake, s_pivot);
     this.s_intake = s_intake;
     this.s_led = s_led;
+    this.s_pivot = s_pivot;
   }
 
   // Called when the command is initially scheduled.
@@ -30,6 +33,7 @@ public class RunIntake extends Command {
   @Override
   public void execute() {
     s_intake.setSpeed(0.2);
+    s_pivot.setGoal(-10);
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +41,7 @@ public class RunIntake extends Command {
   public void end(boolean interrupted) {
     s_intake.setSpeed(0);
     s_led.setIntaking(false);
+    s_pivot.setGoal(90);
   }
 
   // Returns true when the command should end.

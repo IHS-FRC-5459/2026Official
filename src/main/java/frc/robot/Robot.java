@@ -159,6 +159,8 @@ public class Robot extends LoggedRobot {
     robotContainer.s_climb.setGoal(0);
     robotContainer.s_hood.resetEncoder();
     robotContainer.s_hood.resetPID();
+    robotContainer.s_pivot.resetPID();
+    // robotContainer.s_pivot.resetEncoder();
   }
 
   /** This function is called periodically during operator control. */

@@ -184,9 +184,9 @@ public class RobotContainer {
               System.out.println("hi");
             }));
     NamedCommands.registerCommand("climbAlign", new ClimbAlign(drive, s_climb));
-    NamedCommands.registerCommand("hubAlign", new ShootAlign(drive, s_led, ()->0, ()->0));
-    NamedCommands.registerCommand("Intake", new RunIntake(s_led, s_intake));
-    
+    NamedCommands.registerCommand("hubAlign", new ShootAlign(drive, s_led, () -> 0, () -> 0));
+    NamedCommands.registerCommand("Intake", new RunIntake(s_led, s_intake, s_pivot));
+
     // Set up auto routines
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -252,13 +252,16 @@ public class RobotContainer {
         .b()
         .whileTrue(
             new PassShoot(s_led, s_flywheel, s_indexer, s_belt, s_intake, s_pivot, s_hood, drive));
-    operator.x().whileTrue(new RunIntake(s_led, s_intake));
+    operator.x().whileTrue(new RunIntake(s_led, s_intake, s_pivot));
     operator.a().onTrue(new InstantCommand(() -> s_led.setIsAngry(true)));
     operator.a().onFalse(new InstantCommand(() -> s_led.setIsAngry(false)));
     operator.y().onTrue(new InstantCommand(() -> s_led.setIsHappy(true)));
     operator.y().onFalse(new InstantCommand(() -> s_led.setIsHappy(false)));
-    operator.back().onTrue(new InstantCommand(() -> s_led.setIsRainbow(true)));
-    operator.back().onFalse(new InstantCommand(() -> s_led.setIsRainbow(false)));
+
+    // operator.back().onTrue(new InstantCommand()->{
+    // s_pivot.resetPID();
+    // s_pivot.resetEncoder();
+    // }, s_pivot);
     // SmartDashboard.putNumber("yPID_P", 0.6);
     // SmartDashboard.putNumber("yPID_I", 0.03);
     // SmartDashboard.putNumber("yPID_D", 0.1);
@@ -276,10 +279,19 @@ public class RobotContainer {
     // SmartDashboard.putBoolean("omegaEnabled", false);
     // SmartDashboard.putBoolean("step1Done", true);
     // SmartDashboard.putNumber("stoppingDist", 0.0508);
-    SmartDashboard.putNumber("omegaPID_P", 2.5);
-    SmartDashboard.putNumber("omgeaPID_I", 0);
-    SmartDashboard.putNumber("omegaPID_D", 0.02);
-    SmartDashboard.putNumber("omegaFF_S", 0.15);
+    // SmartDashboard.putNumber("omegaPID_P", 2.5);
+    // SmartDashboard.putNumber("omgeaPID_I", 0);
+    // SmartDashboard.putNumber("omegaPID_D", 0.02);
+    // SmartDashboard.putNumber("omegaFF_S", 0.15);
+    SmartDashboard.putNumber("climbVolts", 0);
+    //SmartDashboard.putNumber("pivotGoal", 0);
+    // SmartDashboard.putNumber("pivotPID_P", 1);
+    // SmartDashboard.putNumber("pivotPID_I", 0.1);
+    // SmartDashboard.putNumber("pivotPID_D", 0);
+    // SmartDashboard.putNumber("pivotFF_G", 0.7);
+
+    SmartDashboard.putNumber("flywheelSpeed", 0);
+    SmartDashboard.putNumber("hoodAngle", 0);
   }
 
   /**

@@ -18,7 +18,7 @@ import org.littletonrobotics.junction.Logger;
 public class Climb extends SubsystemBase {
   TalonFX motor;
   // Encoder m_encoder;
-  double goal = 0;
+  private double goal = 0;
   double kMaxVelocity = 1;
   double kS = 1;
   double kMaxAcceleration = 1;
@@ -64,7 +64,12 @@ public class Climb extends SubsystemBase {
 
   public void setGoal(double goal) {
     m_controller.setGoal(goal);
+    this.goal = goal;
     Logger.recordOutput(loggingPrefix + "goal", goal);
+  }
+
+  public double getGoal() {
+    return this.goal;
   }
 
   public void updateMotorOutput() {
@@ -75,8 +80,8 @@ public class Climb extends SubsystemBase {
     setVoltage(volts);
   }
 
-  private void setVoltage(double volts) {
-    // motor.setVoltage(volts);
+  public void setVoltage(double volts) {
+    motor.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
   }
 
@@ -100,6 +105,7 @@ public class Climb extends SubsystemBase {
 
   @Override
   public void periodic() {
-    updateMotorOutput();
+    // updateMotorOutput();
+    Logger.recordOutput(loggingPrefix + "goal", getGoal());
   }
 }
