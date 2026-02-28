@@ -184,7 +184,9 @@ public class RobotContainer {
               System.out.println("hi");
             }));
     NamedCommands.registerCommand("climbAlign", new ClimbAlign(drive, s_climb));
-
+    NamedCommands.registerCommand("hubAlign", new ShootAlign(drive, s_led, ()->0, ()->0));
+    NamedCommands.registerCommand("Intake", new RunIntake(s_led, s_intake));
+    
     // Set up auto routines
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
