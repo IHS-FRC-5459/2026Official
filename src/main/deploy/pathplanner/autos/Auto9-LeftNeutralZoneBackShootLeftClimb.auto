@@ -11,9 +11,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.5
+            "name": "Intake"
           }
         },
         {
@@ -23,9 +23,15 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "hubAlign"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
+            "waitTime": 1.0
           }
         },
         {
