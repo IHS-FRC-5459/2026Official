@@ -31,8 +31,8 @@ public class Shoot extends Command {
   private Drive s_drive;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltPower = 0.5;
-  private final double indexerVolts = 2;
+  private final double beltPower = 0.6;
+  private final double indexerVolts = 7;
   private final double intakePower = 0.2;
 
   // Format: distance from hub(diagonally) in m, optimized hood goal, optimized flywheel goal
@@ -111,9 +111,10 @@ public class Shoot extends Command {
       s_pivot.goOpposite();
     }
     s_belt.setSpeed(beltPower);
+    s_flywheel.setGoal(38);
     s_intake.setSpeed(intakePower);
     s_indexer.setVoltage(indexerVolts);
-    s_hood.setGoal(14);
+    s_hood.setGoal(0);
   }
 
   // Called once the command ends or is interrupted.
@@ -123,6 +124,8 @@ public class Shoot extends Command {
     s_belt.setSpeed(0);
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);
+    s_flywheel.setGoal(0);
+    s_hood.setGoal(0);
     s_led.setShooting(false);
   }
 

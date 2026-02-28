@@ -6,18 +6,19 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.*;
 
-import com.ctre.phoenix6.hardware.TalonFX;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import org.littletonrobotics.junction.Logger;
 
 public class Belt extends SubsystemBase {
-  private TalonFX motor;
+  private SparkMax motor;
   private double commandedSpeed = 0;
   private final String loggingPrefix = "subsystems/belt/";
 
   public Belt() {
-    motor = new TalonFX(Motors.beltId, canbus);
+    motor = new SparkMax(Motors.beltId, MotorType.kBrushless);
   }
 
   public void setSpeed(double power) {

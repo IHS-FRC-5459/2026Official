@@ -66,7 +66,7 @@ public class Flywheel extends SubsystemBase {
 
   public void setGoal(double goal) {
     this.goal = goal;
-    m_fx.setControl(m_velocityVoltage.withVelocity(goal));
+    m_fx.setControl(m_velocityVoltage.withVelocity(-goal));
   }
 
   public double getGoal() {
