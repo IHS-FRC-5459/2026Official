@@ -29,7 +29,7 @@ public class ElevatorDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_climb.setGoal(-6);
+    s_climb.setVoltage(-6);
     // s_climb.setVoltage(SmartDashboard.getNumber("climbVolts", 0));
   }
 

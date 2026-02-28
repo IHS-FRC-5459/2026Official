@@ -156,7 +156,6 @@ public class Robot extends LoggedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-    robotContainer.s_climb.setGoal(0);
     robotContainer.s_hood.resetEncoder();
     robotContainer.s_hood.resetPID();
     robotContainer.s_pivot.resetPID();
