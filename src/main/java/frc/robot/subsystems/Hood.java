@@ -20,12 +20,13 @@ public class Hood extends SubsystemBase {
   private final ArmFeedforward hoodFeedforward;
   private final PIDController hoodPID;
   private double hoodSetpoint = 0;
+
   private final String loggingPrefix = "subsystems/hood/";
 
   public Hood() {
     hoodController = new SparkMax(Motors.hoodId, MotorType.kBrushless);
     hoodEncoder = new Encoder(Ports.HoodEncoderPort1, Ports.HoodEncoderPort2);
-    hoodFeedforward = new ArmFeedforward(0, 0.4, 0);
+    hoodFeedforward = new ArmFeedforward(0, 0.5, 0);
     hoodPID = new PIDController(4, 1, 0.002);
     hoodEncoder.setDistancePerPulse(0.02);
     // This happends to be about encoder dist = degrees of hood
@@ -62,9 +63,17 @@ public class Hood extends SubsystemBase {
     double ffVolts = hoodFeedforward.calculate(getEncoderRadians(), hoodEncoder.getRate());
     double volts = pidVolts + ffVolts;
     hoodController.setVoltage(volts);
-    Logger.recordOutput(loggingPrefix + "pidVolts: ", pidVolts);
-    Logger.recordOutput(loggingPrefix + "ffVolts ", ffVolts);
+    Logger.recordOutput(loggingPrefix + "pidVolts:", pidVolts);
+    Logger.recordOutput(loggingPrefix + "ffVolts", ffVolts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
+  }
+
+  public void resetEncoder() {
+    hoodEncoder.reset();
+  }
+
+  public void resetPID() {
+    hoodPID.reset();
   }
 
   @Override
@@ -73,5 +82,6 @@ public class Hood extends SubsystemBase {
     Logger.recordOutput(loggingPrefix + "EncoderReading", getEncoderDist());
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     updateMotorOutput();
+    Logger.recordOutput(loggingPrefix + "debug", hoodController.getOutputCurrent());
   }
 }

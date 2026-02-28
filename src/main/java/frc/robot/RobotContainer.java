@@ -73,7 +73,7 @@ public class RobotContainer {
   private Indexer s_indexer;
   private Flywheel s_flywheel;
   private Belt s_belt;
-  private Hood s_hood;
+  public Hood s_hood;
   private LED s_led;
   // private final Vision vision
   private Vision vision;

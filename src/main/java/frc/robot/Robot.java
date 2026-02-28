@@ -157,6 +157,8 @@ public class Robot extends LoggedRobot {
       autonomousCommand.cancel();
     }
     robotContainer.s_climb.setGoal(0);
+    robotContainer.s_hood.resetEncoder();
+    robotContainer.s_hood.resetPID();
   }
 
   /** This function is called periodically during operator control. */

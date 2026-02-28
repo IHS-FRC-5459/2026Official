@@ -110,9 +110,9 @@ public class Shoot extends Command {
       lastAgitation = System.currentTimeMillis();
       s_pivot.goOpposite();
     }
-    // s_belt.setSpeed(beltPower);
-    // s_intake.setSpeed(intakePower);
-    // s_indexer.setVoltage(indexerVolts);
+    s_belt.setSpeed(beltPower);
+    s_intake.setSpeed(intakePower);
+    s_indexer.setVoltage(indexerVolts);
     s_hood.setGoal(14);
   }
 

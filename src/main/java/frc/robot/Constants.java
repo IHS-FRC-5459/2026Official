@@ -68,7 +68,7 @@ public final class Constants {
       public static final int ElevatorEncoderPort2 = 4;
       public static final int PivotEncoderPort1 = 5;
       public static final int PivotEncoderPort2 = 6;
-      public static final int HoodEncoderPort1 = 7;
+      public static final int HoodEncoderPort1 = 9;
       public static final int HoodEncoderPort2 = 8;
     }
 
