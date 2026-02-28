@@ -28,9 +28,9 @@ public class PassShoot extends Command {
   private Hood s_hood;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltSpeed = 0.7;
+  private final double beltSpeed = 0.5;
   private final double indexerVolts = 2;
-  private final double intakeSpeed = 0.7;
+  private final double intakeSpeed = 0.2;
   private final double hoodGoal = 1;
   private final double flywheelGoal = 2;
   /** Creates a new Outtake. */

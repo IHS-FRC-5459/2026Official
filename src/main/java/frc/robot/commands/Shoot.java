@@ -31,9 +31,9 @@ public class Shoot extends Command {
   private Drive s_drive;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltPower = 2;
+  private final double beltPower = 0.5;
   private final double indexerVolts = 2;
-  private final double intakePower = 4;
+  private final double intakePower = 0.2;
 
   // Format: distance from hub(diagonally) in m, optimized hood goal, optimized flywheel goal
   private final double[][] lookupTable = {
@@ -102,17 +102,18 @@ public class Shoot extends Command {
         (oneFartherVals[1] - oneCloserVals[0]) * interpolationConst + oneCloserVals[1];
     double interpolatedFlywheelGoal =
         (oneFartherVals[2] - oneCloserVals[2]) * interpolationConst + oneCloserVals[2];
-    s_hood.setGoal(interpolatedHoodGoal);
-    s_flywheel.setGoal(interpolatedFlywheelGoal);
+    // s_hood.setGoal(interpolatedHoodGoal);
+    // s_flywheel.setGoal(interpolatedFlywheelGoal);
     // Agitation
     long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
     if (timeSinceLastAgitation > agitationIntervalTime) {
       lastAgitation = System.currentTimeMillis();
       s_pivot.goOpposite();
     }
-    s_belt.setSpeed(beltPower);
-    s_intake.setSpeed(intakePower);
-    s_indexer.setVoltage(indexerVolts);
+    // s_belt.setSpeed(beltPower);
+    // s_intake.setSpeed(intakePower);
+    // s_indexer.setVoltage(indexerVolts);
+    s_hood.setGoal(14);
   }
 
   // Called once the command ends or is interrupted.

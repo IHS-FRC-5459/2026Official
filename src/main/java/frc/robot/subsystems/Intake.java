@@ -22,8 +22,8 @@ public class Intake extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    motor.set(speed);
-    commandedSpeed = speed;
+    motor.set(-speed);
+    commandedSpeed = -speed;
   }
 
   public double getSpeed() {
@@ -34,6 +34,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     Logger.recordOutput(loggingPrefix + "commandedSpeed", commandedSpeed);
     Logger.recordOutput(loggingPrefix + "speed", getSpeed());
+    // setSpeed(0.1);
     // This method will be called once per scheduler run
   }
 }

@@ -4,19 +4,16 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
+import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
-import frc.robot.Constants.Sensors.Ports;
 import org.littletonrobotics.junction.Logger;
 
 public class Pivot extends SubsystemBase {
-  private final SparkMax pivotController;
-  private final Encoder pivotEncoder;
+  private final TalonFX pivotController;
+  // private final Encoder pivotEncoder;
   private final ArmFeedforward pivotFeedforward;
   private final PIDController pivotPID;
   private double pivotSetpoint = 0;
@@ -27,13 +24,13 @@ public class Pivot extends SubsystemBase {
   private final String loggingPrefix = "subsystems/pivot/";
 
   public Pivot() {
-    pivotController = new SparkMax(Motors.pivotId, MotorType.kBrushless);
-    pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
+    pivotController = new TalonFX(Motors.pivotId);
+    // pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
     pivotFeedforward = new ArmFeedforward(0, 0.4, 0);
     pivotPID = new PIDController(4, 1, 0.002);
-    pivotEncoder.setDistancePerPulse(0.02);
+    // pivotEncoder.setDistancePerPulse(0.02);
     // This happends to be about encoder dist = degrees of pivot
-    pivotEncoder.reset();
+    // pivotEncoder.reset();
   }
 
   public void setGoal(double goal) {
@@ -54,7 +51,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public double getEncoderDist() {
-    return -pivotEncoder.getDistance();
+    return 0; // -pivotEncoder.getDistance();
   }
 
   public double getEncoderRadians() {
@@ -63,9 +60,9 @@ public class Pivot extends SubsystemBase {
 
   public void updateMotorOutput() {
     double pidVolts = pivotPID.calculate(getEncoderRadians());
-    double ffVolts = pivotFeedforward.calculate(getEncoderRadians(), pivotEncoder.getRate());
+    double ffVolts = pivotFeedforward.calculate(getEncoderRadians(), 0);
     double volts = pidVolts + ffVolts;
-    pivotController.setVoltage(volts);
+    pivotController.setVoltage(0); // volts);
     Logger.recordOutput(loggingPrefix + "pidVolts: ", pidVolts);
     Logger.recordOutput(loggingPrefix + "ffVolts ", ffVolts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
