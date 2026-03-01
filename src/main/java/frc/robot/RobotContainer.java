@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.commands.BeltBack;
 import frc.robot.commands.ClimbAlign;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorDown;
@@ -257,7 +258,7 @@ public class RobotContainer {
     operator.a().onFalse(new InstantCommand(() -> s_led.setIsAngry(false)));
     operator.y().onTrue(new InstantCommand(() -> s_led.setIsHappy(true)));
     operator.y().onFalse(new InstantCommand(() -> s_led.setIsHappy(false)));
-
+    operator.back().whileTrue(new BeltBack(s_led, s_belt, s_indexer));
     // operator.back().onTrue(new InstantCommand()->{
     // s_pivot.resetPID();
     // s_pivot.resetEncoder();

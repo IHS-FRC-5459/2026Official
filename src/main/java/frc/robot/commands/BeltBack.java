@@ -5,43 +5,42 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Belt;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LED;
-import frc.robot.subsystems.Pivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class RunIntake extends Command {
-  private Intake s_intake;
+public class BeltBack extends Command {
+  private Belt s_belt;
   private LED s_led;
-  private Pivot s_pivot;
-  /** Creates a new Intake. */
-  public RunIntake(LED s_led, Intake s_intake, Pivot s_pivot) {
+  private Indexer s_indexer;
+  /** Creates a new BeltBack. */
+  public BeltBack(LED s_led, Belt s_belt, Indexer s_indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_intake, s_pivot);
-    this.s_intake = s_intake;
+    addRequirements(s_belt);
+    this.s_belt = s_belt;
     this.s_led = s_led;
-    this.s_pivot = s_pivot;
+    this.s_indexer = s_indexer;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    s_led.setIntaking(true);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_intake.setSpeed(0.2);
-    // s_pivot.setGoal(-20);
+    s_belt.setSpeed(-0.6);
+    s_indexer.setVoltage(-10);
+    s_led.setBeltBack(true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_intake.setSpeed(0);
-    s_led.setIntaking(false);
-    // s_pivot.setGoal(90);
+    s_belt.setSpeed(0);
+    s_indexer.setVoltage(0);
+    s_led.setBeltBack(false);
   }
 
   // Returns true when the command should end.

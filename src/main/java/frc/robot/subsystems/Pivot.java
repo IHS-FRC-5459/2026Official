@@ -8,7 +8,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.Sensors.Ports;
@@ -120,8 +119,8 @@ public class Pivot extends SubsystemBase {
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     Logger.recordOutput(loggingPrefix + "isAtSetpoint", isAtSetpoint());
     Logger.recordOutput(loggingPrefix + "error", pivotPID.getError());
-    setGoal(SmartDashboard.getNumber("pivotGoal", 0));
-    updateMotorOutput();
+    // setGoal(SmartDashboard.getNumber("pivotGoal", 0));
+    // updateMotorOutput();
     // setVoltage(SmartDashboard.getNumber("pivotGoal", 0));
   }
 }
