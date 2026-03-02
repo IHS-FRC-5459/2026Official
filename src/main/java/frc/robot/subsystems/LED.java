@@ -28,7 +28,8 @@ public class LED extends SubsystemBase {
       canShoot,
       isAngry,
       isHappy,
-      isRainbow;
+      isRainbow,
+      isBeltBack;
   private CANdle candle;
   private final String loggingPrefix = "subsystems/led/";
 
@@ -96,6 +97,10 @@ public class LED extends SubsystemBase {
     isRainbow = val;
   }
 
+  public void setBeltBack(boolean val) {
+    isBeltBack = val;
+  }
+
   private void updateLEDs() {
     candle.clearStickyFaults();
     // This is just an exaple cascenario
@@ -119,6 +124,8 @@ public class LED extends SubsystemBase {
       setLEDs(Colors.yellow, true);
       Logger.recordOutput(loggingPrefix + "led", "yellowBlink");
       Logger.recordOutput(loggingPrefix + "state", "intaking");
+    } else if (isBeltBack) {
+      setLEDs(Colors.purple, true);
     } else if (canShoot) {
       setLEDs(Colors.green);
       Logger.recordOutput(loggingPrefix + "led", "green");
