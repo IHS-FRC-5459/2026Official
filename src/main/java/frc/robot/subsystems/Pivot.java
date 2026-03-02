@@ -19,7 +19,7 @@ public class Pivot extends SubsystemBase {
   private Encoder pivotEncoder;
   private final ArmFeedforward pivotFeedforward;
   private final PIDController pivotPID;
-  private double pivotSetpoint = 0;
+  private double pivotSetpoint = 90;
   private final double setpointDeadspace = 10;
   private final double downSetpoint = 0;
   private final double upSetpoint = 100;
@@ -33,6 +33,7 @@ public class Pivot extends SubsystemBase {
     pivotEncoder.setDistancePerPulse(0.02 * (90 / 10.45));
     // This happends to be about encoder dist = degrees of pivot
     pivotEncoder.reset();
+    setGoal(90);
   }
 
   public void setGoal(double goal) {

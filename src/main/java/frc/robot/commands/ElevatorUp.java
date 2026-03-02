@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.LED;
@@ -30,8 +29,8 @@ public class ElevatorUp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // s_climb.setGoal(6);
-    s_climb.setVoltage(SmartDashboard.getNumber("climbVolts", 0));
+    s_climb.setVoltage(6);
+    // s_climb.setVoltage(SmartDashboard.getNumber("climbVolts", 0));
   }
 
   // Called once the command ends or is interrupted.

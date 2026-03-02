@@ -284,7 +284,7 @@ public class RobotContainer {
     // SmartDashboard.putNumber("omegaPID_D", 0.02);
     // SmartDashboard.putNumber("omegaFF_S", 0.15);
     SmartDashboard.putNumber("climbVolts", 0);
-    //SmartDashboard.putNumber("pivotGoal", 0);
+    // SmartDashboard.putNumber("pivotGoal", 0);
     // SmartDashboard.putNumber("pivotPID_P", 1);
     // SmartDashboard.putNumber("pivotPID_I", 0.1);
     // SmartDashboard.putNumber("pivotPID_D", 0);

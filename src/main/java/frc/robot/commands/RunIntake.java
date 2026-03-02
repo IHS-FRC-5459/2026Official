@@ -33,7 +33,7 @@ public class RunIntake extends Command {
   @Override
   public void execute() {
     s_intake.setSpeed(0.2);
-    s_pivot.setGoal(-10);
+    s_pivot.setGoal(-16);
   }
 
   // Called once the command ends or is interrupted.
