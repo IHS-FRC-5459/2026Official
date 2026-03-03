@@ -32,7 +32,7 @@ public class Shoot extends Command {
   private Drive s_drive;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltPower = 0.6;
+  private final double beltPower = 0.3;
   private final double indexerVolts = 7;
   private final double intakePower = 0.2;
 
@@ -64,10 +64,13 @@ public class Shoot extends Command {
   }
 
   // Called when the command is initially scheduled.
+  double beltSpeedTest = 0;
+
   @Override
   public void initialize() {
     lastAgitation = System.currentTimeMillis();
     s_led.setShooting(true);
+    beltSpeedTest += 0.1;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -111,7 +114,7 @@ public class Shoot extends Command {
     //   lastAgitation = System.currentTimeMillis();
     //   s_pivot.goOpposite();
     // }
-    s_pivot.setGoal(0);
+    // s_pivot.setGoal(0);
     s_belt.setSpeed(beltPower);
     s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
     s_indexer.setVoltage(indexerVolts);

@@ -59,7 +59,8 @@ public class Climb extends SubsystemBase {
 
   public double getEncoderDistance() {
     // Logger.recordOutput(loggingPrefix + "encoder", -m_encoder.getDistance());
-    return 0; // -m_encoder.getDistance();
+    // return 0; // -m_encoder.getDistance();
+    return motor.getPosition().getValueAsDouble();
   }
 
   public void setGoal(double goal) {
@@ -107,5 +108,6 @@ public class Climb extends SubsystemBase {
   public void periodic() {
     // updateMotorOutput();
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
+    Logger.recordOutput(loggingPrefix + "encoder", getEncoderDistance());
   }
 }
