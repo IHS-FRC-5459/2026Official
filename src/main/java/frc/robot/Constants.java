@@ -64,8 +64,8 @@ public final class Constants {
     public static final int candleId = 28;
 
     public static class Ports {
-      public static final int ElevatorEncoderPort1 = 3;
-      public static final int ElevatorEncoderPort2 = 4;
+      public static final int ElevatorEncoderPort1 = 5;
+      public static final int ElevatorEncoderPort2 = 6;
       public static final int PivotEncoderPort1 = 6;
       public static final int PivotEncoderPort2 = 7;
       public static final int HoodEncoderPort1 = 9;

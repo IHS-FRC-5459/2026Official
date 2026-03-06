@@ -42,7 +42,7 @@ public class RunIntake extends Command {
   public void end(boolean interrupted) {
     s_intake.setSpeed(0);
     s_led.setIntaking(false);
-    s_pivot.setGoal(90);
+    // s_pivot.setGoal(90);
   }
 
   // Returns true when the command should end.
