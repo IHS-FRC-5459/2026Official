@@ -9,7 +9,6 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Flywheel;
@@ -32,7 +31,7 @@ public class Shoot extends Command {
   private Drive s_drive;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltPower = 0.3;
+  private final double beltPower = 0.3; 
   private final double indexerVolts = 7;
   private final double intakePower = 0.2;
 
@@ -116,9 +115,9 @@ public class Shoot extends Command {
     // }
     // s_pivot.setGoal(0);
     s_belt.setSpeed(beltPower);
-    s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
-    s_indexer.setVoltage(indexerVolts);
-    s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
+    // s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
+    // s_indexer.setVoltage(indexerVolts);
+    // s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
   }
 
   // Called once the command ends or is interrupted.
@@ -129,7 +128,7 @@ public class Shoot extends Command {
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);
     s_flywheel.setGoal(0);
-    s_hood.setGoal(0);
+    s_hood.setGoal(12);
     s_led.setShooting(false);
   }
 

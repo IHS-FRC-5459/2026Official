@@ -6,9 +6,12 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.*;
 
+import com.revrobotics.PersistMode;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import org.littletonrobotics.junction.Logger;
@@ -21,12 +24,15 @@ public class Belt extends SubsystemBase {
   // private SimpleMotorFeedforward
 
   public Belt() {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.closedLoop.pid(0.1, 0, 0.001);
     motor = new SparkMax(Motors.beltId, MotorType.kBrushless);
+    motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     encoder = motor.getEncoder();
   }
 
   public void setSpeed(double power) {
-    motor.set(-power);
+    motor.set(1);
     commandedSpeed = -power;
     Logger.recordOutput(loggingPrefix + "commandedSpeed", -power);
   }
@@ -40,5 +46,6 @@ public class Belt extends SubsystemBase {
     Logger.recordOutput(loggingPrefix + "commandedSpeed", commandedSpeed);
     // This method will be called once per scheduler run
     Logger.recordOutput(loggingPrefix + "integratedEncoderVelocity", getCurrentSpeed());
+    Logger.recordOutput(loggingPrefix + "rawVelocityReading", encoder.getVelocity());
   }
 }
