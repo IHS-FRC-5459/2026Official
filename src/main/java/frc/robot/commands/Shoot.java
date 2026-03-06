@@ -31,7 +31,7 @@ public class Shoot extends Command {
   private Drive s_drive;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltPower = 0.3; 
+  private final double beltPower = 0.3;
   private final double indexerVolts = 7;
   private final double intakePower = 0.2;
 

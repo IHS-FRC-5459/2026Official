@@ -66,8 +66,8 @@ public final class Constants {
     public static class Ports {
       public static final int ElevatorEncoderPort1 = 3;
       public static final int ElevatorEncoderPort2 = 4;
-      public static final int PivotEncoderPort1 = 0;
-      public static final int PivotEncoderPort2 = 1;
+      public static final int PivotEncoderPort1 = 6;
+      public static final int PivotEncoderPort2 = 7;
       public static final int HoodEncoderPort1 = 9;
       public static final int HoodEncoderPort2 = 8;
     }
@@ -82,7 +82,6 @@ public final class Constants {
       public static final double xRobotOffsetFront = 0.3302;
       public static final double xRobotOffsetBack = 0.12065;
       public static final double yRobotOffsetSide = 0.3; // 12 in in m
-
     }
   }
 

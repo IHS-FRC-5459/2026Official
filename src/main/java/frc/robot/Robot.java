@@ -158,7 +158,7 @@ public class Robot extends LoggedRobot {
     }
     robotContainer.s_hood.resetEncoder();
     robotContainer.s_hood.resetPID();
-    robotContainer.s_pivot.resetPID();
+    // robotContainer.s_pivot.resetPID();
     // robotContainer.s_pivot.resetEncoder();
   }
 

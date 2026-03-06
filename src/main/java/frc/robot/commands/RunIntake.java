@@ -34,7 +34,7 @@ public class RunIntake extends Command {
   public void execute() {
     s_intake.setSpeed(0.4);
     // s_intake.setSpeed(SmartDashboard.getNumber("intakeSpeed",0));
-    // s_pivot.setGoal(-20);
+    s_pivot.setGoal(0);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,7 +42,7 @@ public class RunIntake extends Command {
   public void end(boolean interrupted) {
     s_intake.setSpeed(0);
     s_led.setIntaking(false);
-    // s_pivot.setGoal(90);
+    s_pivot.setGoal(90);
   }
 
   // Returns true when the command should end.
