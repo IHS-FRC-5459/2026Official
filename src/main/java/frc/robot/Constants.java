@@ -78,9 +78,11 @@ public final class Constants {
       public static final int backLeftId = 22;
       public static final int backRightId = 23;
       public static final int climbSideId = 27;
+
       public static final double xRobotOffsetFront = 0.3302;
-      public static final double yRobotOffsetSide = 0.3; // 12 in in m
       public static final double xRobotOffsetBack = 0.12065;
+      public static final double yRobotOffsetSide = 0.3; // 12 in in m
+
     }
   }
 
