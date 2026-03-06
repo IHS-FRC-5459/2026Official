@@ -28,7 +28,6 @@ public class BeltBack extends Command {
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
-  //Empty commit
   @Override
   public void execute() {
     s_belt.setSpeed(-0.6);

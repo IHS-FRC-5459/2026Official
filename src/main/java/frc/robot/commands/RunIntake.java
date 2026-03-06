@@ -32,8 +32,9 @@ public class RunIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_intake.setSpeed(0.2);
-    // s_pivot.setGoal(-20);
+    s_intake.setSpeed(0.4);
+    // s_intake.setSpeed(SmartDashboard.getNumber("intakeSpeed",0));
+    s_pivot.setGoal(0);
   }
 
   // Called once the command ends or is interrupted.

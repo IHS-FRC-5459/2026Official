@@ -21,7 +21,7 @@ public class Pivot extends SubsystemBase {
   private double pivotSetpoint = 90;
   private final double setpointDeadspace = 10;
   private final double downSetpoint = 0;
-  private final double upSetpoint = 100;
+  private final double upSetpoint = 90;
   private final String loggingPrefix = "subsystems/pivot/";
 
   public Pivot() {
@@ -64,7 +64,7 @@ public class Pivot extends SubsystemBase {
     pivotPID.reset();
   }
 
-  public void resetEncoder() {
+  private void resetEncoder() {
     pivotEncoder.reset();
   }
 
@@ -72,7 +72,7 @@ public class Pivot extends SubsystemBase {
     double pidVolts = pivotPID.calculate(getEncoderRadians());
     double ffVolts = pivotFeedforward.calculate(getEncoderRadians(), 0);
     double volts = pidVolts + ffVolts;
-    pivotController.setVoltage(volts);
+    // pivotController.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "pidVolts: ", pidVolts);
     Logger.recordOutput(loggingPrefix + "ffVolts ", ffVolts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
@@ -120,7 +120,7 @@ public class Pivot extends SubsystemBase {
     Logger.recordOutput(loggingPrefix + "isAtSetpoint", isAtSetpoint());
     Logger.recordOutput(loggingPrefix + "error", pivotPID.getError());
     // setGoal(SmartDashboard.getNumber("pivotGoal", 0));
-    // updateMotorOutput();
+    updateMotorOutput();
     // setVoltage(SmartDashboard.getNumber("pivotGoal", 0));
   }
 }
