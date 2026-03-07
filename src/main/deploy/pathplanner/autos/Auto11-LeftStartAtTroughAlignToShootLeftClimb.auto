@@ -11,9 +11,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "hubAlign"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "hubAlign"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.75
+                }
+              }
+            ]
           }
         },
         {

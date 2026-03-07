@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0837948717948733,
+        "x": 2.0837948717948738,
         "y": 7.000192307698121
       },
       "isLocked": false,
@@ -83,7 +83,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 112.5
   },
   "reversed": false,
   "folder": "Ben's Auto",

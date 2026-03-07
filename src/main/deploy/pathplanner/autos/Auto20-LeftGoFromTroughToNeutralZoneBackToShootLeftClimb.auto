@@ -5,9 +5,35 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Auto7-AlignToShootGoToHub"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Auto20-LeftGoFromTroughToNeutralZone"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Auto9-GoFromLeftNeutralZoneBackToShoot"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
