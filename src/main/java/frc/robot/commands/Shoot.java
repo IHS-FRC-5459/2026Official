@@ -32,14 +32,16 @@ public class Shoot extends Command {
   private Drive s_drive;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltPower = 0.3;
+  private final double beltPower = 0.4;
   private final double indexerVolts = 7;
   private final double intakePower = 0.2;
 
   // Format: distance from hub(diagonally) in m, optimized hood goal, optimized flywheel goal
   private final double[][] lookupTable = {
-    {0., 0., 0.},
-    {0.1, 1., 1.}
+    {1.2192, 17, 55},
+    {3.048, 32, 60},
+    {3.6576, 32, 70},
+    {4.2672, 35, 100}
   };
   /** Creates a new Outtake. */
   public Shoot(
@@ -108,28 +110,21 @@ public class Shoot extends Command {
         (oneFartherVals[2] - oneCloserVals[2]) * interpolationConst + oneCloserVals[2];
     // s_hood.setGoal(interpolatedHoodGoal);
     // s_flywheel.setGoal(interpolatedFlywheelGoal);
-    // Agitation
-    // long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
-    // if (timeSinceLastAgitation > agitationIntervalTime) {
-    //   lastAgitation = System.currentTimeMillis();
-    //   s_pivot.goOpposite();
-    // }
-    s_pivot.setGoal(0);
-    s_belt.setSpeed(beltPower);
+
+    s_pivot.setGoal(-15);
+    // s_belt.setSpeed(beltPower);
     s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
-    s_indexer.setVoltage(indexerVolts);
+    s_indexer.setVoltage(SmartDashboard.getNumber("indexerVolts", 0));
     s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_pivot.setGoal(90);
-    s_belt.setSpeed(0);
+    // s_belt.setSpeed(0);
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);
-    s_flywheel.setGoal(0);
-    s_hood.setGoal(12);
+    // s_hood.setGoal(12);
     s_led.setShooting(false);
   }
 

@@ -272,7 +272,13 @@ public class RobotContainer {
                   s_pivot.setGoal(90);
                 })); // pIOT UP
     operator.back().whileTrue(new BeltBack(s_led, s_belt, s_indexer));
-
+    operator
+        .povLeft()
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  s_flywheel.setGoal(0);
+                }));
     // operator.back().onTrue(new InstantCommand()->{
     // s_pivot.resetPID();
     // s_pivot.resetEncoder();
@@ -312,8 +318,10 @@ public class RobotContainer {
 
     SmartDashboard.putNumber("flywheelSpeed", 0);
     SmartDashboard.putNumber("hoodAngle", 0);
-    SmartDashboard.putNumber("elevatorGoal", 0);
-    SmartDashboard.putBoolean("elevatorManualControl", false);
+    SmartDashboard.putNumber("indexerVolts", 0.7);
+    // SmartDashboard.putNumber("elevatorGoal", 0);
+    // SmartDashboard.putBoolean("elevatorManualControl", false);
+
     // SmartDashboard.putNumber("beltSpeed", 0);
     // SmartDashboard.putNumber("intakeSpeed", 0);
   }

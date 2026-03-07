@@ -79,18 +79,20 @@ public class Climb extends SubsystemBase {
   }
 
   public void updateMotorOutput() {
-    // double volts =
-    //     m_controller.calculate(getEncoderDistance())
-    //         + m_feedforward.calculate(m_controller.getSetpoint().velocity);
-    // volts = MathUtil.clamp(volts, -5, 5); // actually 12
     if (Math.abs(getEncoderDistance() - getGoal()) > 10) {
-      if (getEncoderDistance() < getGoal()) { // Go up, too low
-        Logger.recordOutput(loggingPrefix + "condition", 1);
-        setVoltage(MathUtil.clamp((getGoal() - getEncoderDistance()) / 50, -12.0, 12.0));
-      } else if (getEncoderDistance() > getGoal()) { // Go down, too high
-        Logger.recordOutput(loggingPrefix + "condition", 2);
-        setVoltage(-MathUtil.clamp((getEncoderDistance() - getGoal()) / 50, -12.0, 12.0));
+      double volts = getGoal() - getEncoderDistance() / 50;
+      int sign = 1;
+      if (volts < 0) {
+        sign = -1;
       }
+      setVoltage(MathUtil.clamp(Math.abs(volts), 3, 12) * sign);
+      // if (getEncoderDistance() < getGoal()) { // Go up, too low
+      //   Logger.recordOutput(loggingPrefix + "condition", 1);
+      //   setVoltage(MathUtil.clamp((getGoal() - getEncoderDistance()) / 50, -12.0, 12.0));
+      // } else if (getEncoderDistance() > getGoal()) { // Go down, too high
+      //   Logger.recordOutput(loggingPrefix + "condition", 2);
+      //   setVoltage(-MathUtil.clamp((getEncoderDistance() - getGoal()) / 50, -12.0, 12.0));
+      // }
     } else {
       Logger.recordOutput(loggingPrefix + "condition", 3);
     }
