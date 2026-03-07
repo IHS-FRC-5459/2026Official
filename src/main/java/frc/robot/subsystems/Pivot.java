@@ -28,7 +28,7 @@ public class Pivot extends SubsystemBase {
     pivotController = new TalonFX(Motors.pivotId);
     pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
     pivotFeedforward = new ArmFeedforward(0, 0.7, 0);
-    pivotPID = new PIDController(1.2, 0.4, 0);
+    pivotPID = new PIDController(1.2, 0.6, 0);
     pivotEncoder.setDistancePerPulse(0.02 * (90 / 10.45));
     // This happends to be about encoder dist = degrees of pivot
     pivotEncoder.reset();
@@ -72,7 +72,7 @@ public class Pivot extends SubsystemBase {
     double pidVolts = pivotPID.calculate(getEncoderRadians());
     double ffVolts = pivotFeedforward.calculate(getEncoderRadians(), 0);
     double volts = pidVolts + ffVolts;
-    // pivotController.setVoltage(volts);
+    pivotController.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "pidVolts: ", pidVolts);
     Logger.recordOutput(loggingPrefix + "ffVolts ", ffVolts);
     Logger.recordOutput(loggingPrefix + "volts", volts);

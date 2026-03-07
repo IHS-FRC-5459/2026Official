@@ -32,7 +32,7 @@ public class Belt extends SubsystemBase {
   }
 
   public void setSpeed(double power) {
-    // motor.set(1);
+    motor.set(-power);
     commandedSpeed = -power;
     Logger.recordOutput(loggingPrefix + "commandedSpeed", -power);
   }

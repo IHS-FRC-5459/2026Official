@@ -66,7 +66,7 @@ public class Hood extends SubsystemBase {
     double pidVolts = hoodPID.calculate(getEncoderRadians());
     double ffVolts = hoodFeedforward.calculate(getEncoderRadians(), hoodEncoder.getRate());
     double volts = pidVolts + ffVolts;
-    // hoodController.setVoltage(volts);
+    hoodController.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "pidVolts:", pidVolts);
     Logger.recordOutput(loggingPrefix + "ffVolts", ffVolts);
     Logger.recordOutput(loggingPrefix + "volts", volts);

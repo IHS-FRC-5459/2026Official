@@ -9,6 +9,7 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Flywheel;
@@ -113,11 +114,11 @@ public class Shoot extends Command {
     //   lastAgitation = System.currentTimeMillis();
     //   s_pivot.goOpposite();
     // }
-    // s_pivot.setGoal(0);
+    s_pivot.setGoal(0);
     s_belt.setSpeed(beltPower);
-    // s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
-    // s_indexer.setVoltage(indexerVolts);
-    // s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
+    s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
+    s_indexer.setVoltage(indexerVolts);
+    s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
   }
 
   // Called once the command ends or is interrupted.

@@ -257,11 +257,22 @@ public class RobotContainer {
         .whileTrue(
             new PassShoot(s_led, s_flywheel, s_indexer, s_belt, s_intake, s_pivot, s_hood, drive));
     operator.x().whileTrue(new RunIntake(s_led, s_intake, s_pivot));
-    operator.a().onTrue(new InstantCommand(() -> s_led.setIsAngry(true)));
-    operator.a().onFalse(new InstantCommand(() -> s_led.setIsAngry(false)));
-    operator.y().onTrue(new InstantCommand(() -> s_led.setIsHappy(true)));
-    operator.y().onFalse(new InstantCommand(() -> s_led.setIsHappy(false)));
+    operator
+        .a()
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  s_pivot.setGoal(-15);
+                })); // Pivot down
+    operator
+        .y()
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  s_pivot.setGoal(90);
+                })); // pIOT UP
     operator.back().whileTrue(new BeltBack(s_led, s_belt, s_indexer));
+
     // operator.back().onTrue(new InstantCommand()->{
     // s_pivot.resetPID();
     // s_pivot.resetEncoder();
@@ -299,8 +310,10 @@ public class RobotContainer {
     // SmartDashboard.putNumber("hoodFF_G", 0);
     // SmartDashboard.putNumber("hoodGoalTesting", 0);
 
-    // SmartDashboard.putNumber("flywheelSpeed", 0);
-    // SmartDashboard.putNumber("hoodAngle", 0);
+    SmartDashboard.putNumber("flywheelSpeed", 0);
+    SmartDashboard.putNumber("hoodAngle", 0);
+    SmartDashboard.putNumber("elevatorGoal", 0);
+    SmartDashboard.putBoolean("elevatorManualControl", false);
     // SmartDashboard.putNumber("beltSpeed", 0);
     // SmartDashboard.putNumber("intakeSpeed", 0);
   }
