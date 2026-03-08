@@ -7,7 +7,6 @@ package frc.robot.commands;
 import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
@@ -21,7 +20,6 @@ public class PassShoot extends Command {
   private LED s_led;
   private Flywheel s_flywheel;
   private Indexer s_indexer;
-  private Belt s_belt;
   private Intake s_intake;
   private Pivot s_pivot;
   private Drive s_drive;
@@ -31,14 +29,13 @@ public class PassShoot extends Command {
   private final double beltSpeed = 0.5;
   private final double indexerVolts = 2;
   private final double intakeSpeed = 0.2;
-  private final double hoodGoal = 1;
+  private final double hoodGoal = 13;
   private final double flywheelGoal = 2;
   /** Creates a new Outtake. */
   public PassShoot(
       LED s_led,
       Flywheel s_flywheel,
       Indexer s_indexer,
-      Belt s_belt,
       Intake s_intake,
       Pivot s_pivot,
       Hood s_hood,
@@ -47,7 +44,6 @@ public class PassShoot extends Command {
     addRequirements(s_flywheel);
     this.s_flywheel = s_flywheel;
     this.s_indexer = s_indexer;
-    this.s_belt = s_belt;
     this.s_intake = s_intake;
     this.s_pivot = s_pivot;
     this.s_drive = s_drive;
@@ -72,7 +68,6 @@ public class PassShoot extends Command {
       lastAgitation = System.currentTimeMillis();
       s_pivot.goOpposite();
     }
-    s_belt.setSpeed(beltSpeed);
     s_intake.setSpeed(intakeSpeed);
     s_indexer.setVoltage(indexerVolts);
     s_hood.setGoal(hoodGoal);
@@ -83,7 +78,6 @@ public class PassShoot extends Command {
   @Override
   public void end(boolean interrupted) {
     s_pivot.goDown();
-    s_belt.setSpeed(0);
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);
     s_led.setShooting(false);

@@ -15,13 +15,21 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
-import frc.robot.Constants.Sensors.Ports;
 import org.littletonrobotics.junction.Logger;
 
 public class Climb extends SubsystemBase {
   TalonFX motor;
+  // MAX = 2800
+
+  public static final class Setpoints {
+    public static final double MAX = 350; // 2800
+    public static final double MIN = 0;
+    public static final double SAFE_MAX = 345; // 2650
+    public static final double SAFE_MIN = 12; // 200
+    // public static final double CLIMB_HEIGHT = 1000;//Never used
+  }
   // Encoder m_encoder;
-  private double goal = 0;
+  private double goal = Setpoints.SAFE_MIN;
   double kMaxVelocity = 1;
   double kS = 1;
   double kMaxAcceleration = 1;
@@ -40,10 +48,12 @@ public class Climb extends SubsystemBase {
   private DistanceSide distanceCacheSide;
   private final String loggingPrefix = "subsystems/climb/";
   private Encoder m_encoder;
+  private LED s_led;
   /** Creates a new Climb. */
-  public Climb() {
+  public Climb(LED s_led) {
+    this.s_led = s_led;
     motor = new TalonFX(Motors.climbId, canbus);
-    m_encoder = new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
+    // m_encoder = motor.get//new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
     // m_encoder = new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
     // m_encoder.setDistancePerPulse(1.0 / 360.0 * 2.0 * Math.PI * 1.5);
     // resetEncoder();
@@ -63,9 +73,10 @@ public class Climb extends SubsystemBase {
   }
 
   public double getEncoderDistance() {
-    // Logger.recordOutput(loggingPrefix + "encoder", -m_encoder.getDistance());
-    // return 0; // -m_encoder.getDistance();
-    return -m_encoder.getDistance();
+    double elevatorPosition = motor.getPosition(true).getValueAsDouble();
+    Logger.recordOutput(loggingPrefix + "encoder", elevatorPosition);
+    return elevatorPosition;
+    // return -m_encoder.getDistance();
   }
 
   public void setGoal(double goal) {
@@ -79,13 +90,14 @@ public class Climb extends SubsystemBase {
   }
 
   public void updateMotorOutput() {
-    if (Math.abs(getEncoderDistance() - getGoal()) > 10) {
-      double volts = getGoal() - getEncoderDistance() / 50;
+    if (Math.abs(getEncoderDistance() - getGoal()) > 1.192857) {
+      double volts = (getGoal() - getEncoderDistance()) / 13;
       int sign = 1;
       if (volts < 0) {
         sign = -1;
       }
-      setVoltage(MathUtil.clamp(Math.abs(volts), 3, 12) * sign);
+      setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
+
       // if (getEncoderDistance() < getGoal()) { // Go up, too low
       //   Logger.recordOutput(loggingPrefix + "condition", 1);
       //   setVoltage(MathUtil.clamp((getGoal() - getEncoderDistance()) / 50, -12.0, 12.0));
@@ -100,6 +112,9 @@ public class Climb extends SubsystemBase {
 
   public void setVoltage(double volts) {
     motor.setVoltage(volts);
+    s_led.setElevatorGoingUp(volts > 0);
+    s_led.setElevatorGoingDown(volts < 0);
+
     Logger.recordOutput(loggingPrefix + "volts", volts);
   }
 

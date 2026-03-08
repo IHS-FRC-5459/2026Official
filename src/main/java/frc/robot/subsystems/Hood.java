@@ -19,7 +19,7 @@ public class Hood extends SubsystemBase {
   private final Encoder hoodEncoder;
   private final ArmFeedforward hoodFeedforward;
   private final PIDController hoodPID;
-  private double hoodSetpoint = 12;
+  private double hoodSetpoint = 13;
 
   private final String loggingPrefix = "subsystems/hood/";
 
@@ -55,7 +55,7 @@ public class Hood extends SubsystemBase {
   }
 
   public double getEncoderDeg() {
-    return getEncoderReading() + 12;
+    return getEncoderReading() + 13;
   }
 
   public double getEncoderRadians() {
@@ -78,6 +78,10 @@ public class Hood extends SubsystemBase {
 
   public void resetPID() {
     hoodPID.reset();
+  }
+
+  public boolean isAtSetpoint() {
+    return Math.abs(getGoal() - getEncoderDeg()) < 3;
   }
 
   @Override

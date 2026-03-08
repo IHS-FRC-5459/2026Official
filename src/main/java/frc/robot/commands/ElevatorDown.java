@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.LED;
@@ -20,23 +21,29 @@ public class ElevatorDown extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
+  boolean elevatorManualControl = false;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    s_led.setElevatorGoingUp(true);
+    s_led.setElevatorGoingDown(true);
+    elevatorManualControl = SmartDashboard.getBoolean("elevatorManualControl", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_climb.setVoltage(-6);
+    if (elevatorManualControl) {
+      s_climb.setVoltage(-6);
+    } else {
+      s_climb.setGoal(Climb.Setpoints.SAFE_MAX);
+    }
+
     // s_climb.setVoltage(SmartDashboard.getNumber("climbVolts", 0));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_led.setElevatorGoingUp(true);
     s_climb.setVoltage(0);
   }
 
