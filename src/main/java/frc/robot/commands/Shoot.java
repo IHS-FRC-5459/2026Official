@@ -130,6 +130,8 @@ public class Shoot extends Command {
     // s_belt.setSpeed(beltPower);
 
     s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
+    Logger.recordOutput(loggingPrefix + "flywheelGood", s_flywheel.isAtSetpoint());
+    Logger.recordOutput(loggingPrefix + "hoodGood", s_hood.isAtSetpoint());
     if (s_flywheel.isAtSetpoint() && s_hood.isAtSetpoint()) {
       s_indexer.setVoltage(indexerVolts);
     } else {
