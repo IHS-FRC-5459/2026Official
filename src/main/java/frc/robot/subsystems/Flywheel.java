@@ -9,17 +9,15 @@ import static frc.robot.Constants.*;
 
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import org.littletonrobotics.junction.Logger;
 
 public class Flywheel extends SubsystemBase {
-  TalonFX m_fx, m_fllr;
+  TalonFX m_fx, m_fx2;
   private double goal;
   private final VelocityVoltage m_velocityVoltage = new VelocityVoltage(0).withSlot(0);
   private final NeutralOut m_brake = new NeutralOut();
@@ -28,7 +26,7 @@ public class Flywheel extends SubsystemBase {
   /** Creates a new Flywheel. */
   public Flywheel() {
     m_fx = new TalonFX(Motors.flywheelId, canbus);
-    m_fllr = new TalonFX(Motors.flywheelId2, canbus);
+    m_fx2 = new TalonFX(Motors.flywheelId2, canbus);
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
 
@@ -61,12 +59,21 @@ public class Flywheel extends SubsystemBase {
     if (!status.isOK()) {
       System.out.println("Could not apply configs, error code: " + status.toString());
     }
-    m_fllr.setControl(new Follower(m_fx.getDeviceID(), MotorAlignmentValue.Opposed));
+    StatusCode status2 = StatusCode.StatusCodeNotInitialized;
+    for (int i = 0; i < 5; ++i) {
+      status2 = m_fx2.getConfigurator().apply(configs);
+      if (status2.isOK()) break;
+    }
+    if (!status2.isOK()) {
+      System.out.println("Could not apply configs, error code: " + status.toString());
+    }
+    // m_fx2.setControl(new Follower(m_fx.getDeviceID(), MotorAlignmentValue.Opposed));
   }
 
   public void setGoal(double goal) {
     this.goal = goal;
-    // m_fx.setControl(m_velocityVoltage.withVelocity(-goal));
+    m_fx.setControl(m_velocityVoltage.withVelocity(-goal));
+    m_fx2.setControl(m_velocityVoltage.withVelocity(goal));
   }
 
   public double getGoal() {
@@ -75,13 +82,21 @@ public class Flywheel extends SubsystemBase {
 
   public void stop() {
     m_fx.setControl(m_brake);
+    m_fx2.setControl(m_brake);
+  }
+
+  public boolean isAtSetpoint() {
+    return Math.abs(Math.abs(m_fx.getVelocity(true).getValueAsDouble()) - getGoal()) < 5
+        && Math.abs(Math.abs(m_fx2.getVelocity(true).getValueAsDouble()) - getGoal()) < 5;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     Logger.recordOutput(
-        loggingPrefix + "flywheelObserved", m_fx.getVelocity(true).getValueAsDouble());
+        loggingPrefix + "flywheelObserved1", m_fx.getVelocity(true).getValueAsDouble());
+    Logger.recordOutput(
+        loggingPrefix + "flywheelObserved2", m_fx2.getVelocity(true).getValueAsDouble());
     Logger.recordOutput(loggingPrefix + "goal", goal);
   }
 }

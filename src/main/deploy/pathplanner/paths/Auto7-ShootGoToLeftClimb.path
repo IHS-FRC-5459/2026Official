@@ -8,27 +8,32 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1651923076923087,
-        "y": 5.290846153846154
+        "x": 1.749928825622776,
+        "y": 4.8795966785290625
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.352,
-        "y": 5.009
+        "x": 1.072,
+        "y": 5.0
       },
       "prevControl": {
-        "x": 2.1419358974358986,
-        "y": 5.32573076923077
+        "x": 1.7284104389086603,
+        "y": 4.95711506524318
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -48,7 +53,7 @@
   "folder": "Ben's Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -28.072
+    "rotation": -12.61
   },
   "useDefaultConstraints": true
 }

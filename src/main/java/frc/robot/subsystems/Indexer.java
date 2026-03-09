@@ -22,7 +22,7 @@ public class Indexer extends SubsystemBase {
   // Note: This subsystem purposely uses voltage rather than power because that is what it was
   // commanded by when we made the interpolation tables
   public void setVoltage(double volts) {
-    // motor.setVoltage(volts);
+    motor.setVoltage(volts);
     commandedVoltage = volts;
   }
 

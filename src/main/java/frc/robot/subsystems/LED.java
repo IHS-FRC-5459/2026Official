@@ -108,14 +108,6 @@ public class LED extends SubsystemBase {
       setLEDs(Colors.green, true);
       Logger.recordOutput(loggingPrefix + "led", "greenBlink");
       Logger.recordOutput(loggingPrefix + "state", "shooting");
-    } else if (elevatorGoingUp) {
-      setLEDs(Colors.purple, true);
-      Logger.recordOutput(loggingPrefix + "led", "purpleBlink");
-      Logger.recordOutput(loggingPrefix + "state", "elevatorGoingUp");
-    } else if (elevatorGoingDown) {
-      setLEDs(Colors.red, true);
-      Logger.recordOutput(loggingPrefix + "led", "redBlink");
-      Logger.recordOutput(loggingPrefix + "state", "elevatorGoingDown");
     } else if (passing) {
       setLEDs(Colors.blue, true);
       Logger.recordOutput(loggingPrefix + "led", "blueBlink");
@@ -130,6 +122,15 @@ public class LED extends SubsystemBase {
       setLEDs(Colors.green);
       Logger.recordOutput(loggingPrefix + "led", "green");
       Logger.recordOutput(loggingPrefix + "state", "canShot");
+    } else if (elevatorGoingUp) { // They are down here beaue it is always one or the other,
+      // basically never is neither
+      setLEDs(Colors.purple, true);
+      Logger.recordOutput(loggingPrefix + "led", "purpleBlink");
+      Logger.recordOutput(loggingPrefix + "state", "elevatorGoingUp");
+    } else if (elevatorGoingDown) {
+      setLEDs(Colors.red, true);
+      Logger.recordOutput(loggingPrefix + "led", "redBlink");
+      Logger.recordOutput(loggingPrefix + "state", "elevatorGoingDown");
     } else if (isAngry) {
       setLEDs(Colors.red, true);
       Logger.recordOutput(loggingPrefix + "led", "red");

@@ -64,8 +64,8 @@ public final class Constants {
     public static final int candleId = 28;
 
     public static class Ports {
-      public static final int ElevatorEncoderPort1 = 5;
-      public static final int ElevatorEncoderPort2 = 6;
+      public static final int ElevatorEncoderPort1 = 4;
+      public static final int ElevatorEncoderPort2 = 5;
       public static final int PivotEncoderPort1 = 6;
       public static final int PivotEncoderPort2 = 7;
       public static final int HoodEncoderPort1 = 9;
@@ -79,9 +79,9 @@ public final class Constants {
       public static final int backRightId = 23;
       public static final int climbSideId = 27;
 
-      public static final double xRobotOffsetFront = 0.3302;
-      public static final double xRobotOffsetBack = 0.12065;
-      public static final double yRobotOffsetSide = 0.3; // 12 in in m
+      public static final double xRobotOffsetFront = 0.2667; // 10.5 inches in meters
+      public static final double xRobotOffsetBack = 0.18415; // 7.5 inches in meters
+      public static final double yRobotOffsetSide = 0.3302; // 13 inches in m - needs to be tuned
     }
   }
 

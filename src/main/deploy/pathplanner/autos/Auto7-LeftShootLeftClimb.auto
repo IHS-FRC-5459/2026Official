@@ -5,21 +5,59 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeDown"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorUp"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Auto7-AlignToShootGoToHub"
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "hubAlign"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "hubAlign"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              }
+            ]
           }
         },
         {
-          "type": "wait",
+          "type": "race",
           "data": {
-            "waitTime": 1.0
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              }
+            ]
           }
         },
         {
@@ -32,6 +70,12 @@
           "type": "named",
           "data": {
             "name": "climbAlign"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorDown"
           }
         }
       ]

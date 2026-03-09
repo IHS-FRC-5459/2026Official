@@ -5,20 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LED;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class BeltBack extends Command {
-  private Belt s_belt;
+/* You should consder using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+public class Reverse extends Command {
   private LED s_led;
   private Indexer s_indexer;
   /** Creates a new BeltBack. */
-  public BeltBack(LED s_led, Belt s_belt, Indexer s_indexer) {
+  public Reverse(LED s_led, Indexer s_indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_belt);
-    this.s_belt = s_belt;
+    addRequirements(s_indexer);
     this.s_led = s_led;
     this.s_indexer = s_indexer;
   }
@@ -30,7 +27,6 @@ public class BeltBack extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_belt.setSpeed(-0.6);
     s_indexer.setVoltage(-10);
     s_led.setBeltBack(true);
   }
@@ -38,7 +34,6 @@ public class BeltBack extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_belt.setSpeed(0);
     s_indexer.setVoltage(0);
     s_led.setBeltBack(false);
   }

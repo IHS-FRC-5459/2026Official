@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    // motor.set(-speed);
+    motor.set(-speed);
     commandedSpeed = -speed;
   }
 
