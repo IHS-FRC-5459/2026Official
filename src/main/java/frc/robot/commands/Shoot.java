@@ -9,6 +9,7 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
@@ -109,8 +110,8 @@ public class Shoot extends Command {
     Logger.recordOutput(loggingPrefix + "interpolatedHood", interpolatedHoodGoal);
     Logger.recordOutput(loggingPrefix + "interpolatedFlywheel", interpolatedFlywheelGoal);
 
-    s_hood.setGoal(interpolatedHoodGoal);
-    s_flywheel.setGoal(interpolatedFlywheelGoal);
+    // s_hood.setGoal(interpolatedHoodGoal);
+    // s_flywheel.setGoal(interpolatedFlywheelGoal);
     // Agitation
     long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
     // if (timeSinceLastAgitation > agitationIntervalTime) {
@@ -128,13 +129,13 @@ public class Shoot extends Command {
     s_pivot.setGoal(-15);
     // s_belt.setSpeed(beltPower);
 
-    // s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
+    s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
     if (s_flywheel.isAtSetpoint() && s_hood.isAtSetpoint()) {
       s_indexer.setVoltage(indexerVolts);
     } else {
       s_indexer.setVoltage(0);
     }
-    // s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
+    s_hood.setGoal(SmartDashboard.getNumber("hoodAngle", 0));
   }
 
   // Called once the command ends or is interrupted.

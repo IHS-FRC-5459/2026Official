@@ -22,11 +22,13 @@ public class ElevatorDown extends Command {
   }
 
   boolean elevatorManualControl = false;
+  boolean isDone = false;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     s_led.setElevatorGoingDown(true);
     elevatorManualControl = SmartDashboard.getBoolean("elevatorManualControl", false);
+    isDone = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +38,7 @@ public class ElevatorDown extends Command {
       s_climb.setVoltage(-6);
     } else {
       s_climb.setGoal(Climb.Setpoints.SAFE_MAX);
+      isDone = true;
     }
 
     // s_climb.setVoltage(SmartDashboard.getNumber("climbVolts", 0));
@@ -50,6 +53,6 @@ public class ElevatorDown extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isDone;
   }
 }
