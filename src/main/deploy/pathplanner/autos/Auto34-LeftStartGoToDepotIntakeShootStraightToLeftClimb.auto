@@ -59,13 +59,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake"
+                        "name": "hubAlign"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "hubAlign"
+                        "name": "Intake"
                       }
                     }
                   ]
@@ -177,9 +177,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "climbAlign"
+            "pathName": "Auto23-GoFromLeftClimbPositionToClimb"
           }
         },
         {

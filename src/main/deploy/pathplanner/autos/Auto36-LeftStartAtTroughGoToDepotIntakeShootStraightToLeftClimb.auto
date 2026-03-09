@@ -33,7 +33,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Auto13-LeftStartGoToDepot1"
+                        "pathName": "Auto15-LeftStartGoToDepotFromTrough1"
                       }
                     }
                   ]
@@ -47,9 +47,9 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 0.5
+                  "name": "hubAlign"
                 }
               },
               {
@@ -59,13 +59,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake"
+                        "name": "hubAlign"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "hubAlign"
+                        "name": "Intake"
                       }
                     }
                   ]
@@ -177,9 +177,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "climbAlign"
+            "pathName": "Auto23-GoFromLeftClimbPositionToClimb"
           }
         },
         {

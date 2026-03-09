@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.2442467378410447,
-        "y": 5.191613285883749
+        "x": 1.072,
+        "y": 5.0
       },
       "prevControl": {
-        "x": 1.1022254940887033,
-        "y": 5.3973557616223236
+        "x": 0.9299787562476587,
+        "y": 5.205742475738575
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Ben's Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -22.0
   },
   "useDefaultConstraints": true
 }

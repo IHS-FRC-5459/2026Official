@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "elevatorUp"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -41,24 +47,50 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "hubAlign"
+                  "waitTime": 0.5
                 }
               },
               {
-                "type": "wait",
+                "type": "parallel",
                 "data": {
-                  "waitTime": 0.75
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "hubAlign"
+                      }
+                    }
+                  ]
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "Shoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              }
+            ]
           }
         },
         {
@@ -92,24 +124,50 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "hubAlign"
+                  "waitTime": 0.5
                 }
               },
               {
-                "type": "wait",
+                "type": "parallel",
                 "data": {
-                  "waitTime": 0.75
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "hubAlign"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake"
+                      }
+                    }
+                  ]
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "Shoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              }
+            ]
           }
         },
         {
@@ -127,7 +185,7 @@
         {
           "type": "named",
           "data": {
-            "name": "climb"
+            "name": "elevatorDown"
           }
         }
       ]

@@ -99,9 +99,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "climbAlign"
+            "pathName": "Auto23-GoFromLeftClimbPositionToClimb"
           }
         },
         {

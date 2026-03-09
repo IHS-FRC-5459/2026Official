@@ -11,47 +11,15 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.15
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "elevatorUp"
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Auto20-LeftGoFromTroughToNeutralZone"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Auto9-GoFromLeftNeutralZoneBackToShoot"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "pathName": "Auto7-AlignToShootGoToHub"
           }
         },
         {
@@ -95,13 +63,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Auto7-ShootGoToLeftClimb"
+            "pathName": "Auto8-ShootGoToRightClimb"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "climbAlign"
+            "pathName": "Auto22-GoFromRightClimbPositionToClimb"
           }
         },
         {

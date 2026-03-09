@@ -11,18 +11,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.15
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorUp"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
@@ -39,7 +27,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Auto20-LeftGoFromTroughToNeutralZone"
+                        "pathName": "Auto9-LeftGoToNeutralZone"
                       }
                     },
                     {
@@ -52,6 +40,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorUp"
           }
         },
         {
@@ -99,9 +93,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "climbAlign"
+            "pathName": "Auto23-GoFromLeftClimbPositionToClimb"
           }
         },
         {
