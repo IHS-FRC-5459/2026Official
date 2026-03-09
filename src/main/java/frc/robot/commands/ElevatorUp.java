@@ -46,7 +46,7 @@ public class ElevatorUp extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_climb.setVoltage(0);
+    // s_climb.setVoltage(0);
   }
 
   // Returns true when the command should end.

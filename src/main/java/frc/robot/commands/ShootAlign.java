@@ -46,6 +46,7 @@ public class ShootAlign extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("workingggggggggg\n\n\n\n\n\n\n\n");
     // Note: Assumes CCW is posotive andle, CW is negative angle
     Pose2d currPose = s_drive.getPose();
     // Close-side(blue)

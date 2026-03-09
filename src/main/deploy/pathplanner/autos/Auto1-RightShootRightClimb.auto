@@ -11,12 +11,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "elevatorUp"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Auto1-AlignToShootGoToHub"
@@ -64,18 +58,6 @@
           "type": "path",
           "data": {
             "pathName": "Auto1-ShootGoToRightClimb-RightClimbInGeneral"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "climbAlign"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorDown"
           }
         }
       ]

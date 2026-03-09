@@ -150,7 +150,7 @@ public class Climb extends SubsystemBase {
       }
     }
 
-    setGoal(SmartDashboard.getNumber("elevatorGoal", 0));
+    // setGoal(SmartDashboard.getNumber("elevatorGoal", 0));
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     Logger.recordOutput(loggingPrefix + "encoder", getEncoderDistance());
   }

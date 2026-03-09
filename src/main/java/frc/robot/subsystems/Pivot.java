@@ -45,7 +45,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public void setVoltage(double volts) {
-    // pivotController.setVoltage(volts);
+    pivotController.setVoltage(volts);
   }
 
   public double getVoltage() {
@@ -72,7 +72,7 @@ public class Pivot extends SubsystemBase {
     double pidVolts = pivotPID.calculate(getEncoderRadians());
     double ffVolts = pivotFeedforward.calculate(getEncoderRadians(), 0);
     double volts = pidVolts + ffVolts;
-    // pivotController.setVoltage(volts);
+    pivotController.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "pidVolts: ", pidVolts);
     Logger.recordOutput(loggingPrefix + "ffVolts ", ffVolts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
