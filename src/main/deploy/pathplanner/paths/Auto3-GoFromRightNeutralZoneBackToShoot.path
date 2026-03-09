@@ -89,7 +89,7 @@
   "folder": "Ben's Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -75.0
   },
   "useDefaultConstraints": true
 }
