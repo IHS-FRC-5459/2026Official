@@ -128,7 +128,7 @@ public class Shoot extends Command {
 
     s_pivot.setGoal(-15);
     // s_belt.setSpeed(beltPower);
-
+//Whitespace
     s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
     Logger.recordOutput(loggingPrefix + "flywheelGood", s_flywheel.isAtSetpoint());
     Logger.recordOutput(loggingPrefix + "hoodGood", s_hood.isAtSetpoint());
