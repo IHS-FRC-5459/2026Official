@@ -29,17 +29,19 @@ public class Shoot extends Command {
   private Hood s_hood;
   private Drive s_drive;
   private long lastAgitation;
-  private final double agitationIntervalTime = 1000;
+  private final double agitationIntervalTime = 650;
   private final double indexerVolts = 7;
   private String loggingPrefix = "commands/shoot/";
 
   // Format: distance from hub(diagonally) in m, optimized hood goal, optimized flywheel goal
   private final double[][] lookupTable = {
+    {0, 13, 40},
     {1.8288, 16.5, 48},
     {2.4384, 21, 50},
     {3.048, 24, 53},
     {3.6576, 29, 51},
     {4.2672, 31, 56},
+    {10, 35, 135}
   };
   /** Creates a new Outtake. */
   public Shoot(
@@ -63,12 +65,18 @@ public class Shoot extends Command {
 
   // Called when the command is initially scheduled.
   double beltSpeedTest = 0;
+  double startOfCommand = 0;
+  int numChanges = 0;
 
   @Override
   public void initialize() {
     lastAgitation = System.currentTimeMillis();
+    startOfCommand = System.currentTimeMillis();
     s_led.setShooting(true);
+    numChanges = 0;
     beltSpeedTest += 0.1;
+    s_pivot.setGoal(-15);
+    s_pivot.setP(2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -101,10 +109,12 @@ public class Shoot extends Command {
     double interpolationConst =
         (distToHub - oneCloserVals[0]) / (oneFartherVals[0] - oneCloserVals[0]);
     double interpolatedHoodGoal =
-        (oneFartherVals[1] - oneCloserVals[0]) * interpolationConst + oneCloserVals[1];
+        (oneFartherVals[1] - oneCloserVals[1]) * interpolationConst + oneCloserVals[1];
     double interpolatedFlywheelGoal =
         (oneFartherVals[2] - oneCloserVals[2]) * interpolationConst + oneCloserVals[2];
     Logger.recordOutput(loggingPrefix + "dist", distToHub);
+    Logger.recordOutput(loggingPrefix + "oneCloserVals", oneCloserVals);
+    Logger.recordOutput(loggingPrefix + "oneFartherVals", oneFartherVals);
     Logger.recordOutput(loggingPrefix + "interpolationConst", interpolationConst);
     Logger.recordOutput(loggingPrefix + "interpolatedHood", interpolatedHoodGoal);
     Logger.recordOutput(loggingPrefix + "interpolatedFlywheel", interpolatedFlywheelGoal);
@@ -113,19 +123,40 @@ public class Shoot extends Command {
     s_flywheel.setGoal(interpolatedFlywheelGoal);
     // Agitation
     long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
-    // if (timeSinceLastAgitation > agitationIntervalTime) {
+    Logger.recordOutput(loggingPrefix + "timeSinceLastAgitation", timeSinceLastAgitation);
     // if (s_pivot.isAtSetpoint()) {
-    //   if (timeSinceLastAgitation >= 5000) {
-    //     lastAgitation = System.currentTimeMillis();
-    //     if (s_pivot.getGoal() == -15) {
-    //       s_pivot.setGoal(90);
-    //     } else {
-    //       s_pivot.setGoal(-15);
-    //     }
+    //   lastAgitation = System.currentTimeMillis();
+    //   if (s_pivot.getGoal() == -15) {
+    //     s_pivot.setGoal(20);
+    //     Logger.recordOutput(loggingPrefix + "changing", "down");
+    //   } else {
+    //     s_pivot.setGoal(-15);
+    //     Logger.recordOutput(loggingPrefix + "changing", "up");
     //   }
-    // }
+    if (System.currentTimeMillis() - startOfCommand > 500) {
+      if (timeSinceLastAgitation > agitationIntervalTime) {
+        numChanges++;
+        lastAgitation = System.currentTimeMillis();
+        if (numChanges >= 10) {
+          s_pivot.setGoal(90);
+          s_intake.setSpeed(0);
+          Logger.recordOutput(loggingPrefix + "changing", "allUp");
+        } else if (s_pivot.getGoal() == -15) {
+          s_pivot.setGoal(30);
+          Logger.recordOutput(loggingPrefix + "changing", "down");
+        } else {
+          s_pivot.setGoal(-15);
+          Logger.recordOutput(loggingPrefix + "changing", "up");
+        }
+      }
+    }
 
-    s_pivot.setGoal(-15);
+    // s_pivot.setGoal(-15);
+    if (System.currentTimeMillis() - startOfCommand > 500 && numChanges < 10) {
+      s_intake.setSpeed(0.2);
+    } else {
+      s_intake.setSpeed(0);
+    }
     // s_belt.setSpeed(beltPower);
     // Whitespace
     // s_flywheel.setGoal(SmartDashboard.getNumber("flywheelSpeed", 0));
@@ -147,6 +178,7 @@ public class Shoot extends Command {
     s_indexer.setVoltage(0);
     s_flywheel.setGoal(0);
     // s_hood.setGoal(13);
+    s_pivot.setP(1.2);
     s_led.setShooting(false);
   }
 

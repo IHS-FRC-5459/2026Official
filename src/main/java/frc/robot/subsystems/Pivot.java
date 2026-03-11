@@ -27,12 +27,16 @@ public class Pivot extends SubsystemBase {
   public Pivot() {
     pivotController = new TalonFX(Motors.pivotId);
     pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
-    pivotFeedforward = new ArmFeedforward(0, 0.7, 0);
-    pivotPID = new PIDController(1.2, 0.6, 0);
+    pivotFeedforward = new ArmFeedforward(0, 0.8, 0);
+    pivotPID = new PIDController(1.2, 0.8, 0);
     pivotEncoder.setDistancePerPulse(0.02 * (90 / 10.45));
     // This happends to be about encoder dist = degrees of pivot
     pivotEncoder.reset();
     setGoal(90);
+  }
+
+  public void setP(double p) {
+    pivotPID.setP(p);
   }
 
   public void setGoal(double goal) {
