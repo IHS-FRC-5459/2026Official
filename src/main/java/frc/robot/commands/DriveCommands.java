@@ -196,7 +196,7 @@ public class DriveCommands {
     isFirstCall = bool;
   }
 
-  public static void joystickDriveAtAngleCustom(
+  public static boolean joystickDriveAtAngleCustom(
       Drive drive,
       DoubleSupplier xSupplier,
       DoubleSupplier ySupplier,
@@ -243,6 +243,7 @@ public class DriveCommands {
         ChassisSpeeds.fromFieldRelativeSpeeds(
             speeds,
             isFlipped ? drive.getRotation().plus(new Rotation2d(Math.PI)) : drive.getRotation()));
+    return omega == 0;
   }
 
   public static void joystickDriveAtAngleCustom(

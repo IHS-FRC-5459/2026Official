@@ -19,6 +19,7 @@ import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerMotorArrangement;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.Climb;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -139,7 +140,9 @@ public class Robot extends LoggedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.schedule();
     }
-    robotContainer.s_pivot.goDown();
+    // robotContainer.s_pivot.goDown();
+    robotContainer.s_hood.resetPID();
+    robotContainer.s_pivot.resetPID();
   }
 
   /** This function is called periodically during autonomous. */
@@ -159,6 +162,7 @@ public class Robot extends LoggedRobot {
     // robotContainer.s_hood.resetEncoder();
     robotContainer.s_hood.resetPID();
     robotContainer.s_pivot.resetPID();
+    robotContainer.s_climb.setGoal(Climb.Setpoints.SAFE_MIN);
     // robotContainer.s_pivot.resetEncoder();
   }
 
