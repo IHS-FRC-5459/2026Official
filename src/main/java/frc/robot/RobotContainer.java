@@ -309,10 +309,10 @@ public class RobotContainer {
     // SmartDashboard.putNumber("omegaFF_S", 0.15);
     // SmartDashboard.putNumber("climbVolts", 0);
     // SmartDashboard.putNumber("pivotGoal", 0);
-    // SmartDashboard.putNumber("pivotPID_P", 1);
-    // SmartDashboard.putNumber("pivotPID_I", 0.1);
-    // SmartDashboard.putNumber("pivotPID_D", 0);
-    // SmartDashboard.putNumber("pivotFF_G", 0.7);
+    SmartDashboard.putNumber("pivotPID_P", 1);
+    SmartDashboard.putNumber("pivotPID_I", 0.1);
+    SmartDashboard.putNumber("pivotPID_D", 0);
+    SmartDashboard.putNumber("pivotFF_G", 0.7);
     // SmartDashboard.putNumber("hoodPID_P", 0);
     // SmartDashboard.putNumber("hoodPID_I", 0);
     // SmartDashboard.putNumber("hoodPID_D", 0);

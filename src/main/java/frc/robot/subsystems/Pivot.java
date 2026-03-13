@@ -8,6 +8,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.Sensors.Ports;
@@ -109,10 +110,10 @@ public class Pivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // pivotPID.setP(SmartDashboard.getNumber("pivotPID_P", 0));
-    // pivotPID.setI(SmartDashboard.getNumber("pivotPID_I", 0));
-    // pivotPID.setD(SmartDashboard.getNumber("pivotPID_D", 0));
-    // pivotFeedforward.setKg(SmartDashboard.getNumber("pivotFF_G", 0));
+    pivotPID.setP(SmartDashboard.getNumber("pivotPID_P", 0));
+    pivotPID.setI(SmartDashboard.getNumber("pivotPID_I", 0));
+    pivotPID.setD(SmartDashboard.getNumber("pivotPID_D", 0));
+    pivotFeedforward.setKg(SmartDashboard.getNumber("pivotFF_G", 0));
     Logger.recordOutput(loggingPrefix + "kP", pivotPID.getP());
     Logger.recordOutput(loggingPrefix + "kI", pivotPID.getI());
     Logger.recordOutput(loggingPrefix + "kD", pivotPID.getD());
