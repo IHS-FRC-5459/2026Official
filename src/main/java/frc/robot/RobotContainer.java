@@ -70,7 +70,7 @@ import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
  */
 public class RobotContainer {
   // Subsystems
-  private final Drive drive;
+  public Drive drive;
   private Intake s_intake;
   public Climb s_climb;
   public Pivot s_pivot; // On purpose so that we can go down at start of match/auto

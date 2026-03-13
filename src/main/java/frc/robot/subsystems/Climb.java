@@ -154,6 +154,6 @@ public class Climb extends SubsystemBase {
     // setGoal(SmartDashboard.getNumber("elevatorGoal", 0));
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     Logger.recordOutput(loggingPrefix + "encoder", getEncoderDistance());
-    // motor.setVoltage(2);
+    // motor.setVoltage(-2);
   }
 }

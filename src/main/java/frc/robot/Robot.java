@@ -143,6 +143,7 @@ public class Robot extends LoggedRobot {
     // robotContainer.s_pivot.goDown();
     robotContainer.s_hood.resetPID();
     robotContainer.s_pivot.resetPID();
+    robotContainer.drive.setIsAuto(true);
   }
 
   /** This function is called periodically during autonomous. */
@@ -152,6 +153,8 @@ public class Robot extends LoggedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    robotContainer.drive.setIsAuto(false);
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

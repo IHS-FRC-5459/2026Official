@@ -261,6 +261,16 @@ public class Drive extends SubsystemBase {
     runVelocity(new ChassisSpeeds());
   }
 
+  boolean isAuto = true;
+
+  public void setIsAuto(boolean bool) {
+    this.isAuto = bool;
+  }
+
+  public boolean getIsAuto() {
+    return this.isAuto;
+  }
+
   /**
    * Stops the drive and turns the modules to an X arrangement to resist movement. The modules will
    * return to their normal orientations the next time a nonzero velocity is requested.

@@ -67,6 +67,7 @@ public class Shoot extends Command {
   double beltSpeedTest = 0;
   double startOfCommand = 0;
   int numChanges = 0;
+  int maxNumChanges = 6;
 
   @Override
   public void initialize() {
@@ -77,6 +78,11 @@ public class Shoot extends Command {
     beltSpeedTest += 0.1;
     s_pivot.setGoal(-15);
     s_pivot.setP(2);
+    if (s_drive.getIsAuto()) {
+      maxNumChanges = 4;
+    } else {
+      maxNumChanges = 8;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -137,9 +143,15 @@ public class Shoot extends Command {
       if (timeSinceLastAgitation > agitationIntervalTime) {
         numChanges++;
         lastAgitation = System.currentTimeMillis();
-        if (numChanges >= 10) {
+        if (numChanges == maxNumChanges) {
           s_pivot.setGoal(90);
           s_intake.setSpeed(0);
+          if (!s_pivot.isAtSetpoint()) {
+            numChanges--;
+          }
+          Logger.recordOutput(loggingPrefix + "changing", "allUp");
+        } else if (numChanges >= maxNumChanges + 1) {
+          s_pivot.setGoal(-15);
           Logger.recordOutput(loggingPrefix + "changing", "allUp");
         } else if (s_pivot.getGoal() == -15) {
           s_pivot.setGoal(30);
@@ -152,7 +164,7 @@ public class Shoot extends Command {
     }
 
     // s_pivot.setGoal(-15);
-    if (System.currentTimeMillis() - startOfCommand > 500 && numChanges < 10) {
+    if (System.currentTimeMillis() - startOfCommand > 500 && numChanges < maxNumChanges) {
       s_intake.setSpeed(0.2);
     } else {
       s_intake.setSpeed(0);
