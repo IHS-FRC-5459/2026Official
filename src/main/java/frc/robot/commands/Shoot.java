@@ -42,7 +42,17 @@ public class Shoot extends Command {
     {3.6576, 29, 51},
     {4.2672, 31, 56},
     {10, 35, 135}
+    /*
+    {0, 13, 40},
+    {1.8288, 16.5, 48},
+    {2.4384, 21, 50},
+    {3.048, 24, 53},
+    {3.6576, 29, 51},
+    {4.2672, 31, 56},
+    {10, 35, 135}
+     */
   };
+  public double operatorOffset = 0;
   /** Creates a new Outtake. */
   public Shoot(
       LED s_led,
@@ -83,6 +93,7 @@ public class Shoot extends Command {
     } else {
       maxNumChanges = 8;
     }
+    s_hood.resetPID();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -100,7 +111,13 @@ public class Shoot extends Command {
         Math.sqrt(
             Math.pow(Math.abs(hubPose.getX() - currPose.getX()), 2)
                 + Math.pow(Math.abs(hubPose.getY() - currPose.getY()), 2));
-    distToHub -= 0.34;
+    // Previous dist was from center of robot to center of hub.
+    // We subtract here for the distancefrom the center of the robo to the front of the chassi,
+    // which is where we measured from
+    distToHub -= 0.34; // Deduction for bumpers
+    distToHub += s_flywheel.getOperatorOffset();
+    distToHub += 0.6;
+    // distToHub += 1; // Because it was too short
     double[] oneCloserVals = lookupTable[0];
     double[] oneFartherVals = lookupTable[lookupTable.length - 1];
     for (int i = 0; i < lookupTable.length; i++) {

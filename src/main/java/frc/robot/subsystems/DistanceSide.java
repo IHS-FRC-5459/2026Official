@@ -26,9 +26,9 @@ public class DistanceSide extends SubsystemBase {
     sensor.setRangingMode(RangingMode.Short, 24);
   }
 
-  public double getYDistance() {
-    return getDistanceFiltered() + Constants.Sensors.Distance.yRobotOffsetSide;
-  }
+  // public double getYDistance() {
+  //   return getDistanceFiltered() + Constants.Sensors.Distance.yRobotOffsetSide;
+  // }
 
   public TimeOfFlight.Status getStatus() {
     return sensor.getStatus();

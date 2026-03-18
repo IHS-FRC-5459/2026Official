@@ -26,11 +26,10 @@ public class PassShoot extends Command {
   private Hood s_hood;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double beltSpeed = 0.5;
-  private final double indexerVolts = 2;
+  private final double indexerVolts = 7;
   private final double intakeSpeed = 0.2;
-  private final double hoodGoal = 13;
-  private final double flywheelGoal = 2;
+  private final double hoodGoal = 33;
+  private final double flywheelGoal = 130;
   /** Creates a new Outtake. */
   public PassShoot(
       LED s_led,
@@ -77,7 +76,6 @@ public class PassShoot extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_pivot.goDown();
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);
     s_led.setShooting(false);

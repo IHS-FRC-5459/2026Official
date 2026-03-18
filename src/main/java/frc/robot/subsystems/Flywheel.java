@@ -12,6 +12,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import org.littletonrobotics.junction.Logger;
@@ -90,6 +91,16 @@ public class Flywheel extends SubsystemBase {
         && Math.abs(Math.abs(m_fx2.getVelocity(true).getValueAsDouble()) - getGoal()) < 5;
   }
 
+  private double operatorOffset = 0;
+
+  public void changeOperatorOffset(double amt) {
+    this.operatorOffset += amt;
+  }
+
+  public double getOperatorOffset() {
+    return operatorOffset;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -98,5 +109,7 @@ public class Flywheel extends SubsystemBase {
     Logger.recordOutput(
         loggingPrefix + "flywheelObserved2", m_fx2.getVelocity(true).getValueAsDouble());
     Logger.recordOutput(loggingPrefix + "goal", goal);
+    SmartDashboard.putNumber("operatorOffset", getOperatorOffset());
+    Logger.recordOutput(loggingPrefix + "operatorOffset", getOperatorOffset());
   }
 }

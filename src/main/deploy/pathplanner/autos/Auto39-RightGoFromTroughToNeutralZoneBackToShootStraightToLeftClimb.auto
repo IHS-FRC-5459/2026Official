@@ -93,6 +93,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeDown"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Auto2-ShootGoToLeftClimb-LeftClimbInGeneral"

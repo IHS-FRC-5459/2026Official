@@ -34,6 +34,7 @@ import frc.robot.commands.AutoShootAlign;
 import frc.robot.commands.ClimbAlign;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorDown;
+import frc.robot.commands.ElevatorHalfway;
 import frc.robot.commands.ElevatorUp;
 import frc.robot.commands.FlywheelSpinUp;
 import frc.robot.commands.PassAlign;
@@ -195,6 +196,7 @@ public class RobotContainer {
             () -> {
               s_pivot.setGoal(-15);
             }));
+    NamedCommands.registerCommand("elevatorHalfway", new ElevatorHalfway(s_led, s_climb));
 
     // Set up auto routines
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -260,6 +262,7 @@ public class RobotContainer {
         .b()
         .whileTrue(new PassShoot(s_led, s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
     operator.x().whileTrue(new RunIntake(s_led, s_intake, s_pivot));
+    operator.povRight().whileTrue(new ElevatorHalfway(s_led, s_climb));
     operator
         .a()
         .onTrue(
@@ -282,22 +285,36 @@ public class RobotContainer {
                 () -> {
                   s_flywheel.setGoal(0);
                 }));
+    operator
+        .povUp()
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  s_flywheel.changeOperatorOffset(0.1);
+                }));
+    operator
+        .povDown()
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  s_flywheel.changeOperatorOffset(-0.1);
+                }));
     // operator.back().onTrue(new InstantCommand()->{
     // s_pivot.resetPID();
     // s_pivot.resetEncoder();
     // }, s_pivot);
-    // SmartDashboard.putNumber("yPID_P", 0.6);
+    // SmartDashboard.putNumber("yPID_P", 0.7);
     // SmartDashboard.putNumber("yPID_I", 0.03);
-    // SmartDashboard.putNumber("yPID_D", 0.1);
-    // SmartDashboard.putNumber("yFF_S", 0.1);
-    // SmartDashboard.putNumber("xPID_P", 2.5);
-    // SmartDashboard.putNumber("xPID_I", 0.01);
+    // SmartDashboard.putNumber("yPID_D", 0.2);
+    // SmartDashboard.putNumber("yFF_S", 0.23);
+    // SmartDashboard.putNumber("xPID_P", 1.5);
+    // SmartDashboard.putNumber("xPID_I", 0.02);
     // SmartDashboard.putNumber("xPID_D", 0.03);
-    // SmartDashboard.putNumber("xFF_S", 0.12);
+    // SmartDashboard.putNumber("xFF_S", 0.2);
     // SmartDashboard.putNumber("omegaPID_P", 2.5);
     // SmartDashboard.putNumber("omgeaPID_I", 0);
     // SmartDashboard.putNumber("omegaPID_D", 0.02);
-    // SmartDashboard.putNumber("omegaFF_S", 0.15);
+    // SmartDashboard.putNumber("omegaFF_S", 0.2);
     // SmartDashboard.putBoolean("xEnabled", false);
     // SmartDashboard.putBoolean("yEnabled", false);
     // SmartDashboard.putBoolean("omegaEnabled", false);
@@ -309,10 +326,10 @@ public class RobotContainer {
     // SmartDashboard.putNumber("omegaFF_S", 0.15);
     // SmartDashboard.putNumber("climbVolts", 0);
     // SmartDashboard.putNumber("pivotGoal", 0);
-    SmartDashboard.putNumber("pivotPID_P", 1);
-    SmartDashboard.putNumber("pivotPID_I", 0.1);
-    SmartDashboard.putNumber("pivotPID_D", 0);
-    SmartDashboard.putNumber("pivotFF_G", 0.7);
+    // SmartDashboard.putNumber("pivotPID_P", 2);
+    // SmartDashboard.putNumber("pivotPID_I", 1);
+    // SmartDashboard.putNumber("pivotPID_D", 0);
+    // SmartDashboard.putNumber("pivotFF_G", 0.8);
     // SmartDashboard.putNumber("hoodPID_P", 0);
     // SmartDashboard.putNumber("hoodPID_I", 0);
     // SmartDashboard.putNumber("hoodPID_D", 0);

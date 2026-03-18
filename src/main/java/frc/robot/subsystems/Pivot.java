@@ -29,7 +29,7 @@ public class Pivot extends SubsystemBase {
     pivotController = new TalonFX(Motors.pivotId);
     pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
     pivotFeedforward = new ArmFeedforward(0, 0.8, 0);
-    pivotPID = new PIDController(1.2, 0.8, 0);
+    pivotPID = new PIDController(2, 1, 0);
     pivotEncoder.setDistancePerPulse(0.02 * (90 / 10.45));
     // This happends to be about encoder dist = degrees of pivot
     pivotEncoder.reset();
@@ -110,17 +110,17 @@ public class Pivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    pivotPID.setP(SmartDashboard.getNumber("pivotPID_P", 0));
-    pivotPID.setI(SmartDashboard.getNumber("pivotPID_I", 0));
-    pivotPID.setD(SmartDashboard.getNumber("pivotPID_D", 0));
-    pivotFeedforward.setKg(SmartDashboard.getNumber("pivotFF_G", 0));
+    // pivotPID.setP(SmartDashboard.getNumber("pivotPID_P", pivotPID.getP()));
+    // pivotPID.setI(SmartDashboard.getNumber("pivotPID_I", pivotPID.getI()));
+    // pivotPID.setD(SmartDashboard.getNumber("pivotPID_D", pivotPID.getD()));
+    // pivotFeedforward.setKg(SmartDashboard.getNumber("pivotFF_G", pivotFeedforward.getKg()));
     Logger.recordOutput(loggingPrefix + "kP", pivotPID.getP());
     Logger.recordOutput(loggingPrefix + "kI", pivotPID.getI());
     Logger.recordOutput(loggingPrefix + "kD", pivotPID.getD());
     Logger.recordOutput(loggingPrefix + "kG", pivotFeedforward.getKg());
-
     // This method will be called once per scheduler run
     Logger.recordOutput(loggingPrefix + "EncoderReading", getEncoderDist());
+    SmartDashboard.putNumber("PivotEncoder", getEncoderDist());
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     Logger.recordOutput(loggingPrefix + "isAtSetpoint", isAtSetpoint());
     Logger.recordOutput(loggingPrefix + "error", pivotPID.getError());

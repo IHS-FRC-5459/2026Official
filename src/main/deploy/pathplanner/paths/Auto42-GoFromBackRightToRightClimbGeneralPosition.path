@@ -3,39 +3,44 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2,
-        "y": 2.5
+        "x": 1.146,
+        "y": 2.012
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.200565048170842,
-        "y": 2.7499993614403135
+        "x": 1.157893368010402,
+        "y": 2.566579973992199
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.0785,
+        "x": 1.079,
         "y": 3.45
       },
       "prevControl": {
-        "x": 1.0895996441281146,
-        "y": 3.1810201660735458
+        "x": 1.0871261378413513,
+        "y": 3.050156046814045
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.23,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
+      "minWaypointRelativePos": 0.0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 0.2,
+        "maxVelocity": 0.25,
         "maxAcceleration": 0.25,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 400.0,
@@ -62,7 +67,7 @@
   "folder": "Ben's Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 30.579000000000004
   },
   "useDefaultConstraints": true
 }

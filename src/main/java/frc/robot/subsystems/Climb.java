@@ -25,7 +25,8 @@ public class Climb extends SubsystemBase {
     public static final double MAX = 350; // 2800
     public static final double MIN = 0;
     public static final double SAFE_MAX = 348; // 2650
-    public static final double SAFE_MIN = 12; // 200
+    public static final double SAFE_MIN = 10; // 200
+    public static final double HALFWAY = 125;
     // public static final double CLIMB_HEIGHT = 1000;//Never used
   }
   // Encoder m_encoder;
@@ -114,7 +115,6 @@ public class Climb extends SubsystemBase {
     motor.setVoltage(volts);
     s_led.setElevatorGoingUp(volts > 0);
     s_led.setElevatorGoingDown(volts < 0);
-
     Logger.recordOutput(loggingPrefix + "volts", volts);
   }
 
@@ -149,8 +149,7 @@ public class Climb extends SubsystemBase {
         hasStoppedElevator = true;
       }
     }
-    // motor.setVoltage(-1);
-
+    // motor.setVoltagce(-1);
     // setGoal(SmartDashboard.getNumber("elevatorGoal", 0));
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     Logger.recordOutput(loggingPrefix + "encoder", getEncoderDistance());

@@ -79,8 +79,9 @@ public final class Constants {
       public static final int backRightId = 23;
       public static final int climbSideId = 27;
 
-      public static final double xRobotOffsetFront = 0.2667; // 10.5 inches in meters
-      public static final double xRobotOffsetBack = 0.18415; // 7.5 inches in meters
+      public static final double xRobotOffsetFront =
+          0.2667 + 0.01 + 0.04445; // 10.5 inches in meters
+      public static final double xRobotOffsetBack = 0.17145 + 0.0381; // 7.5 inches in meters
       public static final double yRobotOffsetSide = 0.3302; // 13 inches in m - needs to be tuned
     }
   }

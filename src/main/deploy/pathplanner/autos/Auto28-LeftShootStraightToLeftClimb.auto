@@ -61,6 +61,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeDown"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Auto7-ShootGoToLeftClimb"
