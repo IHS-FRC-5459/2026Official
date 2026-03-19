@@ -5,16 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.LED;
 import frc.robot.subsystems.drive.Drive;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PassAlign extends Command {
-  LED s_led;
   Drive s_drive;
   /** Creates a new PassAlign. */
-  public PassAlign(LED s_led, Drive s_drive) {
-    this.s_led = s_led;
+  public PassAlign(Drive s_drive) {
     this.s_drive = s_drive;
     // Use addRequirements() here to declare subsystem dependencies.
   }

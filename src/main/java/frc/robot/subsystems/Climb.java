@@ -49,10 +49,8 @@ public class Climb extends SubsystemBase {
   private DistanceSide distanceCacheSide;
   private final String loggingPrefix = "subsystems/climb/";
   private Encoder m_encoder;
-  private LED s_led;
   /** Creates a new Climb. */
-  public Climb(LED s_led) {
-    this.s_led = s_led;
+  public Climb() {
     motor = new TalonFX(Motors.climbId, canbus);
     // m_encoder = motor.get//new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
     // m_encoder = new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
@@ -113,8 +111,6 @@ public class Climb extends SubsystemBase {
 
   public void setVoltage(double volts) {
     motor.setVoltage(volts);
-    s_led.setElevatorGoingUp(volts > 0);
-    s_led.setElevatorGoingDown(volts < 0);
     Logger.recordOutput(loggingPrefix + "volts", volts);
   }
 

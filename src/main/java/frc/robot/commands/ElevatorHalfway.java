@@ -7,17 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climb;
-import frc.robot.subsystems.LED;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ElevatorHalfway extends Command {
   Climb s_climb;
-  LED s_led;
   /** Creates a new ClimbDown. */
-  public ElevatorHalfway(LED s_led, Climb s_climb) {
+  public ElevatorHalfway(Climb s_climb) {
     addRequirements(s_climb);
     this.s_climb = s_climb;
-    this.s_led = s_led;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,7 +23,6 @@ public class ElevatorHalfway extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    s_led.setElevatorGoingDown(true);
     elevatorManualControl = SmartDashboard.getBoolean("elevatorManualControl", false);
     isDone = false;
   }

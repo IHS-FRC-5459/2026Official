@@ -49,7 +49,6 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
@@ -77,7 +76,6 @@ public class RobotContainer {
   private Indexer s_indexer;
   private Flywheel s_flywheel;
   public Hood s_hood;
-  private LED s_led;
   // private final Vision vision
   private Vision vision;
   // Sensors
@@ -110,9 +108,8 @@ public class RobotContainer {
                 new VisionIOPhotonVision(camera3Name, robotToCamera3));
         pigeon = new Pigeon2(Constants.Sensors.pigeonId, Constants.canbus);
         candle = new CANdle(Constants.Sensors.candleId, Constants.canbus);
-        s_led = new LED(candle);
         s_intake = new Intake();
-        s_climb = new Climb(s_led);
+        s_climb = new Climb();
         s_pivot = new Pivot();
         s_indexer = new Indexer();
         s_flywheel = new Flywheel();
@@ -139,9 +136,8 @@ public class RobotContainer {
 
         pigeon = new Pigeon2(Constants.Sensors.pigeonId, Constants.canbus);
         candle = new CANdle(Constants.Sensors.candleId, Constants.canbus);
-        s_led = new LED(candle);
         s_intake = new Intake();
-        s_climb = new Climb(s_led);
+        s_climb = new Climb();
         s_pivot = new Pivot();
         s_indexer = new Indexer();
         s_flywheel = new Flywheel();
@@ -167,9 +163,8 @@ public class RobotContainer {
                 new VisionIO() {});
         pigeon = new Pigeon2(Constants.Sensors.pigeonId, Constants.canbus);
         candle = new CANdle(Constants.Sensors.candleId, Constants.canbus);
-        s_led = new LED(candle);
         s_intake = new Intake();
-        s_climb = new Climb(s_led);
+        s_climb = new Climb();
         s_pivot = new Pivot();
         s_indexer = new Indexer();
         s_flywheel = new Flywheel();
@@ -183,19 +178,19 @@ public class RobotContainer {
               System.out.println("hi");
             }));
     NamedCommands.registerCommand("climbAlign", new ClimbAlign(drive, s_climb));
-    NamedCommands.registerCommand("hubAlign", new ShootAlign(drive, s_led, () -> 0, () -> 0));
-    NamedCommands.registerCommand("Intake", new RunIntake(s_led, s_intake, s_pivot));
+    NamedCommands.registerCommand("hubAlign", new ShootAlign(drive, () -> 0, () -> 0));
+    NamedCommands.registerCommand("Intake", new RunIntake(s_intake));
     NamedCommands.registerCommand(
-        "Shoot", new Shoot(s_led, s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
-    NamedCommands.registerCommand("elevatorDown", new ElevatorDown(s_led, s_climb));
-    NamedCommands.registerCommand("elevatorUp", new ElevatorUp(s_led, s_climb));
+        "Shoot", new Shoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
+    NamedCommands.registerCommand("elevatorDown", new ElevatorDown(s_climb));
+    NamedCommands.registerCommand("elevatorUp", new ElevatorUp(s_climb));
     NamedCommands.registerCommand(
         "IntakeDown",
         new InstantCommand(
             () -> {
               s_pivot.setGoal(-15);
             }));
-    NamedCommands.registerCommand("elevatorHalfway", new ElevatorHalfway(s_led, s_climb));
+    NamedCommands.registerCommand("elevatorHalfway", new ElevatorHalfway(s_climb));
 
     // Set up auto routines
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -247,21 +242,18 @@ public class RobotContainer {
                 .ignoringDisable(true));
     driver
         .rightTrigger(0.2)
-        .whileTrue(
-            new ShootAlign(drive, s_led, () -> -driver.getLeftY(), () -> -driver.getLeftX()));
+        .whileTrue(new ShootAlign(drive, () -> -driver.getLeftY(), () -> -driver.getLeftX()));
     driver.rightBumper().whileTrue(new ClimbAlign(drive, s_climb));
-    driver.leftTrigger(0.2).whileTrue(new PassAlign(s_led, drive));
-    operator.rightBumper().whileTrue(new ElevatorDown(s_led, s_climb));
-    operator.leftBumper().whileTrue(new ElevatorUp(s_led, s_climb));
+    driver.leftTrigger(0.2).whileTrue(new PassAlign(drive));
+    operator.rightBumper().whileTrue(new ElevatorDown(s_climb));
+    operator.leftBumper().whileTrue(new ElevatorUp(s_climb));
     operator.leftTrigger(0.2).onTrue(new FlywheelSpinUp(s_flywheel));
     operator
         .rightTrigger(0.2)
-        .whileTrue(new Shoot(s_led, s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
-    operator
-        .b()
-        .whileTrue(new PassShoot(s_led, s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
-    operator.x().whileTrue(new RunIntake(s_led, s_intake, s_pivot));
-    operator.povRight().whileTrue(new ElevatorHalfway(s_led, s_climb));
+        .whileTrue(new Shoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
+    operator.b().whileTrue(new PassShoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
+    operator.x().whileTrue(new RunIntake(s_intake));
+    operator.povRight().whileTrue(new ElevatorHalfway(s_climb));
     operator
         .a()
         .onTrue(
@@ -276,7 +268,7 @@ public class RobotContainer {
                 () -> {
                   s_pivot.setGoal(90);
                 })); // pIOT UP
-    operator.back().whileTrue(new Reverse(s_led, s_indexer));
+    operator.back().whileTrue(new Reverse(s_indexer));
     operator
         .povLeft()
         .onTrue(

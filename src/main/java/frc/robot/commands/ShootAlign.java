@@ -12,7 +12,6 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.LED;
 import frc.robot.subsystems.drive.Drive;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -22,25 +21,21 @@ import org.littletonrobotics.junction.Logger;
 public class ShootAlign extends Command {
   Drive s_drive;
   DoubleSupplier xSupplier, ySupplier;
-  LED s_led;
   private static final String loggingPrefix = "commands/shootAlign/";
   /** Creates a new ShootAlign. */
-  public ShootAlign(
-      Drive s_drive, LED s_led, DoubleSupplier controllerX, DoubleSupplier controllerY) {
+  public ShootAlign(Drive s_drive, DoubleSupplier controllerX, DoubleSupplier controllerY) {
     // Use addRequirements() here to declare subsystem dependencies.
     // Note: I putpoosely didnt put dive in addRequirements because I dont want to lock out Rose
     // from driving translation-wise
     this.s_drive = s_drive;
     this.xSupplier = controllerX;
     this.ySupplier = controllerY;
-    this.s_led = s_led;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     setIsFirstCall(true);
-    s_led.setCanShoot(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -86,7 +81,6 @@ public class ShootAlign extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    s_led.setCanShoot(false);
     if (s_drive.getIsAuto()) {
       s_drive.stopWithX();
     }

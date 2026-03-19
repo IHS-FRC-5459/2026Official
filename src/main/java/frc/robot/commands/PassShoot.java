@@ -11,13 +11,11 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.drive.Drive;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PassShoot extends Command {
-  private LED s_led;
   private Flywheel s_flywheel;
   private Indexer s_indexer;
   private Intake s_intake;
@@ -32,7 +30,6 @@ public class PassShoot extends Command {
   private final double flywheelGoal = 130;
   /** Creates a new Outtake. */
   public PassShoot(
-      LED s_led,
       Flywheel s_flywheel,
       Indexer s_indexer,
       Intake s_intake,
@@ -46,7 +43,6 @@ public class PassShoot extends Command {
     this.s_intake = s_intake;
     this.s_pivot = s_pivot;
     this.s_drive = s_drive;
-    this.s_led = s_led;
     this.s_hood = s_hood;
   }
 
@@ -54,7 +50,6 @@ public class PassShoot extends Command {
   @Override
   public void initialize() {
     lastAgitation = System.currentTimeMillis();
-    s_led.setShooting(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -78,7 +73,6 @@ public class PassShoot extends Command {
   public void end(boolean interrupted) {
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);
-    s_led.setShooting(false);
     s_flywheel.setGoal(0);
   }
 

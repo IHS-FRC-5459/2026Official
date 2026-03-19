@@ -14,14 +14,12 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.drive.Drive;
 import org.littletonrobotics.junction.Logger;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Shoot extends Command {
-  private LED s_led;
   private Flywheel s_flywheel;
   private Indexer s_indexer;
   private Intake s_intake;
@@ -55,7 +53,6 @@ public class Shoot extends Command {
   public double operatorOffset = 0;
   /** Creates a new Outtake. */
   public Shoot(
-      LED s_led,
       Flywheel s_flywheel,
       Indexer s_indexer,
       Intake s_intake,
@@ -69,7 +66,6 @@ public class Shoot extends Command {
     this.s_intake = s_intake;
     this.s_pivot = s_pivot;
     this.s_drive = s_drive;
-    this.s_led = s_led;
     this.s_hood = s_hood;
   }
 
@@ -83,7 +79,6 @@ public class Shoot extends Command {
   public void initialize() {
     lastAgitation = System.currentTimeMillis();
     startOfCommand = System.currentTimeMillis();
-    s_led.setShooting(true);
     numChanges = 0;
     beltSpeedTest += 0.1;
     s_pivot.setGoal(-15);
@@ -208,7 +203,6 @@ public class Shoot extends Command {
     s_flywheel.setGoal(0);
     // s_hood.setGoal(13);
     s_pivot.setP(1.2);
-    s_led.setShooting(false);
   }
 
   // Returns true when the command should end.
