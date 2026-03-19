@@ -87,6 +87,9 @@ public class ShootAlign extends Command {
   @Override
   public void end(boolean interrupted) {
     s_led.setCanShoot(false);
+    if (s_drive.getIsAuto()) {
+      s_drive.stopWithX();
+    }
   }
 
   // Returns true when the command should end.

@@ -73,6 +73,17 @@ public class Vision extends SubsystemBase {
     return inputs[cameraIndex].latestTargetObservation.tx();
   }
 
+  private final double defaultUniversalVisionStdDevMult = 1;
+  private double universalVisionStdDevMult = defaultUniversalVisionStdDevMult;
+
+  public void setUniversalVisionStdDevMult(double mult) {
+    universalVisionStdDevMult = mult;
+  }
+
+  public double getUniversalVisionStdDevMult() {
+    return universalVisionStdDevMult;
+  }
+
   @Override
   public void periodic() {
     for (int i = 0; i < io.length; i++) {
@@ -151,7 +162,7 @@ public class Vision extends SubsystemBase {
             observation.pose().toPose2d(),
             observation.timestamp(),
             VecBuilder.fill(linearStdDev, linearStdDev, angularStdDev)
-                .times(3)); // Added to make less jumpy
+                .times(getUniversalVisionStdDevMult())); // Added to make less jumpy
       }
       // Log camera metadata
       Logger.recordOutput(

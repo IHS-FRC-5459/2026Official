@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
@@ -27,6 +28,18 @@ public class Pivot extends SubsystemBase {
 
   public Pivot() {
     pivotController = new TalonFX(Motors.pivotId);
+    CurrentLimitsConfigs currentLimits = new CurrentLimitsConfigs();
+
+    // Stator current limit (motor windings)
+    currentLimits.StatorCurrentLimit = 40; // amps
+    currentLimits.StatorCurrentLimitEnable = true;
+
+    // Supply current limit (from battery)
+    currentLimits.SupplyCurrentLimit = 30; // amps
+    currentLimits.SupplyCurrentLimitEnable = true;
+
+    // Apply configuration to motor
+    pivotController.getConfigurator().apply(currentLimits);
     pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
     pivotFeedforward = new ArmFeedforward(0, 0.8, 0);
     pivotPID = new PIDController(2, 1, 0);

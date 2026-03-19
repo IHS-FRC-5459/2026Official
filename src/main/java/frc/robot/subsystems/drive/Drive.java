@@ -51,6 +51,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.util.LocalADStarAK;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -170,7 +171,18 @@ public class Drive extends SubsystemBase {
       module.periodic();
     }
     odometryLock.unlock();
-
+    Pose2d currPose = this.getPose();
+    // Close-side(blue)
+    Pose2d hubPose = new Pose2d(Inches.of(182.11), Inches.of(158.84), new Rotation2d(0));
+    if (currPose.getX() > VisionConstants.aprilTagLayout.getFieldLength() / 2) { // Far-side(red)
+      hubPose = new Pose2d(Inches.of(469.11), Inches.of(158.84), new Rotation2d(0));
+    }
+    // Pythagorean
+    double distToHub =
+        Math.sqrt(
+            Math.pow(Math.abs(hubPose.getX() - currPose.getX()), 2)
+                + Math.pow(Math.abs(hubPose.getY() - currPose.getY()), 2));
+    Logger.recordOutput("distToHub", distToHub);
     // Stop moving when disabled
     if (DriverStation.isDisabled()) {
       for (var module : modules) {

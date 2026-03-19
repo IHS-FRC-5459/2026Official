@@ -30,7 +30,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.commands.AutoShootAlign;
 import frc.robot.commands.ClimbAlign;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.ElevatorDown;
@@ -184,7 +183,7 @@ public class RobotContainer {
               System.out.println("hi");
             }));
     NamedCommands.registerCommand("climbAlign", new ClimbAlign(drive, s_climb));
-    NamedCommands.registerCommand("hubAlign", new AutoShootAlign(drive, s_led, () -> 0, () -> 0));
+    NamedCommands.registerCommand("hubAlign", new ShootAlign(drive, s_led, () -> 0, () -> 0));
     NamedCommands.registerCommand("Intake", new RunIntake(s_led, s_intake, s_pivot));
     NamedCommands.registerCommand(
         "Shoot", new Shoot(s_led, s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
