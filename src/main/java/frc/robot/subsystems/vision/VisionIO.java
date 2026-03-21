@@ -39,5 +39,7 @@ public interface VisionIO {
     PHOTONVISION
   }
 
-  public default void updateInputs(VisionIOInputs inputs) {}
+  public default boolean updateInputs(VisionIOInputs inputs) {
+    return true;
+  }
 }
