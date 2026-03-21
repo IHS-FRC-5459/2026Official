@@ -294,6 +294,9 @@ public class RobotContainer {
     // s_pivot.resetPID();
     // s_pivot.resetEncoder();
     // }, s_pivot);
+    SmartDashboard.putNumber("interpolationHoodGoal", 0);
+    SmartDashboard.putNumber("interpolationFlywheelGoal", 0);
+
     // SmartDashboard.putNumber("yPID_P", 0.7);
     // SmartDashboard.putNumber("yPID_I", 0.03);
     // SmartDashboard.putNumber("yPID_D", 0.2);

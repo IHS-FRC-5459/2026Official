@@ -9,6 +9,7 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
@@ -137,8 +138,11 @@ public class Shoot extends Command {
     Logger.recordOutput(loggingPrefix + "interpolatedHood", interpolatedHoodGoal);
     Logger.recordOutput(loggingPrefix + "interpolatedFlywheel", interpolatedFlywheelGoal);
 
-    s_hood.setGoal(interpolatedHoodGoal);
-    s_flywheel.setGoal(interpolatedFlywheelGoal);
+    // s_hood.setGoal(interpolatedHoodGoal);
+    // s_flywheel.setGoal(interpolatedFlywheelGoal);
+    s_hood.setGoal(SmartDashboard.getNumber("interpolationHoodGoal", 0));
+    s_flywheel.setGoal(SmartDashboard.getNumber("interpolationFlywheelGoal", 0));
+
     // Agitation
     long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
     Logger.recordOutput(loggingPrefix + "timeSinceLastAgitation", timeSinceLastAgitation);

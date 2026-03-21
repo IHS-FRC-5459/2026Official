@@ -25,7 +25,7 @@ public class RunIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    s_intake.setSpeed(0.5);
+    s_intake.setSpeed(0.3);
   }
 
   // Called once the command ends or is interrupted.
