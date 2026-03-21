@@ -26,8 +26,8 @@ public class Hood extends SubsystemBase {
   public Hood() {
     hoodController = new SparkMax(Motors.hoodId, MotorType.kBrushless);
     hoodEncoder = new Encoder(Ports.HoodEncoderPort1, Ports.HoodEncoderPort2);
-    hoodFeedforward = new ArmFeedforward(0.05, 0.3, 0);
-    hoodPID = new PIDController(6, 0.5, 0);
+    hoodFeedforward = new ArmFeedforward(0, 0.58, 0);
+    hoodPID = new PIDController(3.5, 6, 0.3);
     hoodEncoder.setDistancePerPulse(38. / 1469.5);
     // This happends to be about encoder dist = degrees of hood
     hoodEncoder.reset();

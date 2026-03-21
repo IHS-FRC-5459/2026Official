@@ -41,8 +41,8 @@ public class Pivot extends SubsystemBase {
     // Apply configuration to motor
     pivotController.getConfigurator().apply(currentLimits);
     pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
-    pivotFeedforward = new ArmFeedforward(0, 0.8, 0);
-    pivotPID = new PIDController(2, 1, 0);
+    pivotFeedforward = new ArmFeedforward(0, 0.48, 0);
+    pivotPID = new PIDController(3, 1.5, 0.4);
     pivotEncoder.setDistancePerPulse(0.02 * (90 / 10.45));
     // This happends to be about encoder dist = degrees of pivot
     pivotEncoder.reset();

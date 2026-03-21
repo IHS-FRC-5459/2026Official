@@ -316,7 +316,7 @@ public class RobotContainer {
     // SmartDashboard.putNumber("omegaPID_D", 0.02);
     // SmartDashboard.putNumber("omegaFF_S", 0.15);
     // SmartDashboard.putNumber("climbVolts", 0);
-    // SmartDashboard.putNumber("pivotGoal", 0);
+    // SmartDashboard.putNumber("pivotGoal", 90);
     // SmartDashboard.putNumber("pivotPID_P", 2);
     // SmartDashboard.putNumber("pivotPID_I", 1);
     // SmartDashboard.putNumber("pivotPID_D", 0);
@@ -327,10 +327,10 @@ public class RobotContainer {
     // SmartDashboard.putNumber("hoodFF_G", 0);
     // SmartDashboard.putNumber("hoodGoalTesting", 0);
 
-    SmartDashboard.putNumber("flywheelSpeed", 0);
-    SmartDashboard.putNumber("hoodAngle", 0);
-    SmartDashboard.putNumber("indexerVolts", 0.7);
-    SmartDashboard.putNumber("elevatorGoal", 0);
+    // SmartDashboard.putNumber("flywheelSpeed", 0);
+    // SmartDashboard.putNumber("hoodAngle", 0);
+    // SmartDashboard.putNumber("indexerVolts", 0.7);
+    // SmartDashboard.putNumber("elevatorGoal", 0);
     SmartDashboard.putBoolean("elevatorManualControl", false);
 
     // SmartDashboard.putNumber("beltSpeed", 0);

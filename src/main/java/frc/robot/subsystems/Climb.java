@@ -45,8 +45,6 @@ public class Climb extends SubsystemBase {
   private final ProfiledPIDController m_controller =
       new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);
   private final ElevatorFeedforward m_feedforward = new ElevatorFeedforward(kS, kG, kV);
-  private DistanceCaching distanceCacheFront, distanceCacheBack;
-  private DistanceSide distanceCacheSide;
   private final String loggingPrefix = "subsystems/climb/";
   private Encoder m_encoder;
   /** Creates a new Climb. */
@@ -56,19 +54,6 @@ public class Climb extends SubsystemBase {
     // m_encoder = new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
     // m_encoder.setDistancePerPulse(1.0 / 360.0 * 2.0 * Math.PI * 1.5);
     // resetEncoder();
-    distanceCacheFront =
-        new DistanceCaching(
-            Sensors.Distance.frontLeftId,
-            Sensors.Distance.frontRightId,
-            Sensors.Distance.xRobotOffsetFront,
-            "front");
-    distanceCacheBack =
-        new DistanceCaching(
-            Sensors.Distance.backLeftId,
-            Sensors.Distance.backRightId,
-            Sensors.Distance.xRobotOffsetBack,
-            "back");
-    distanceCacheSide = new DistanceSide();
   }
 
   public double getEncoderDistance() {
@@ -95,7 +80,11 @@ public class Climb extends SubsystemBase {
       if (volts < 0) {
         sign = -1;
       }
-      setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
+      if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
+        setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
+      } else {
+        setVoltage(-2);
+      }
 
       // if (getEncoderDistance() < getGoal()) { // Go up, too low
       //   Logger.recordOutput(loggingPrefix + "condition", 1);
@@ -118,33 +107,22 @@ public class Climb extends SubsystemBase {
     // m_encoder.reset();
   }
 
-  public DistanceCaching getDistanceCacheFront() {
-    return this.distanceCacheFront;
-  }
-
-  public DistanceCaching getDistanceCacheBack() {
-    return this.distanceCacheBack;
-  }
-
-  public DistanceSide getDistanceSide() {
-    return this.distanceCacheSide;
-  }
-
   boolean hasStoppedElevator = false;
 
   @Override
   public void periodic() {
-    Logger.recordOutput(loggingPrefix + "elevatorController", false);
-    if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
-      updateMotorOutput();
-      Logger.recordOutput(loggingPrefix + "elevatorControlled", true);
-      hasStoppedElevator = false;
-    } else {
-      if (!hasStoppedElevator) {
-        setVoltage(0);
-        hasStoppedElevator = true;
-      }
-    }
+    // Logger.recordOutput(loggingPrefix + "elevatorController", false);
+    // if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
+    //   updateMotorOutput();
+    //   Logger.recordOutput(loggingPrefix + "elevatorControlled", true);
+    //   hasStoppedElevator = false;
+    // } else {
+    //   if (!hasStoppedElevator) {
+    //     setVoltage(0);
+    //     hasStoppedElevator = true;
+    //   }
+    // }
+    updateMotorOutput();
     // motor.setVoltagce(-1);
     // setGoal(SmartDashboard.getNumber("elevatorGoal", 0));
     Logger.recordOutput(loggingPrefix + "goal", getGoal());

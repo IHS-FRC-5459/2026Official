@@ -24,10 +24,10 @@ public class PassShoot extends Command {
   private Hood s_hood;
   private long lastAgitation;
   private final double agitationIntervalTime = 1000;
-  private final double indexerVolts = 7;
+  private final double indexerVolts = 12;
   private final double intakeSpeed = 0.2;
   private final double hoodGoal = 33;
-  private final double flywheelGoal = 130;
+  private final double flywheelGoal = 30; // 130
   /** Creates a new Outtake. */
   public PassShoot(
       Flywheel s_flywheel,
@@ -57,12 +57,12 @@ public class PassShoot extends Command {
   public void execute() {
     // Idk whal algothm we're gonna do for calculating flywheel volts or hood angle yet
     // Agitation
-    long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
-    if (timeSinceLastAgitation > agitationIntervalTime) {
-      lastAgitation = System.currentTimeMillis();
-      s_pivot.goOpposite();
-    }
-    s_intake.setSpeed(intakeSpeed);
+    // long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
+    // if (timeSinceLastAgitation > agitationIntervalTime) {
+    //   lastAgitation = System.currentTimeMillis();
+    //   s_pivot.goOpposite();
+    // }
+    // s_intake.setSpeed(intakeSpeed);
     s_indexer.setVoltage(indexerVolts);
     s_hood.setGoal(hoodGoal);
     s_flywheel.setGoal(flywheelGoal);

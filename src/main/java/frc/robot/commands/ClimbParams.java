@@ -10,7 +10,6 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.subsystems.DistanceCaching;
 import org.littletonrobotics.junction.Logger;
 
 // pose's x < half field
@@ -28,7 +27,6 @@ public class ClimbParams {
   private boolean isFront = false;
   private int omegaMultiplier = 1; // Sign for rotation
   private Pose2d goal;
-  private DistanceCaching distCache;
 
   // Notes: Left and right mean left and right if you were to face the climb structure standing on
   // the field of whatever structure you are climbing
