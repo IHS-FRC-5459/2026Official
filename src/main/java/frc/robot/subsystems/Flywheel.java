@@ -106,8 +106,7 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    Logger.recordOutput(
-        loggingPrefix + "flywheelObserved1", m_fx.getVelocity().getValueAsDouble());
+    Logger.recordOutput(loggingPrefix + "flywheelObserved1", m_fx.getVelocity().getValueAsDouble());
     Logger.recordOutput(
         loggingPrefix + "flywheelObserved2", m_fx2.getVelocity().getValueAsDouble());
     Logger.recordOutput(loggingPrefix + "commanded1", m_fx.getAppliedControl().toString());
