@@ -11,7 +11,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
@@ -46,27 +45,21 @@ public class Climb extends SubsystemBase {
       new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);
   private final ElevatorFeedforward m_feedforward = new ElevatorFeedforward(kS, kG, kV);
   private final String loggingPrefix = "subsystems/climb/";
-  private Encoder m_encoder;
+  private final boolean closedLoopDisabled;
+
   /** Creates a new Climb. */
   public Climb() {
     motor = new TalonFX(Motors.climbId, canbus);
-    // m_encoder = motor.get//new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
-    // m_encoder = new Encoder(Ports.ElevatorEncoderPort1, Ports.ElevatorEncoderPort2);
-    // m_encoder.setDistancePerPulse(1.0 / 360.0 * 2.0 * Math.PI * 1.5);
-    // resetEncoder();
+    closedLoopDisabled = SmartDashboard.getBoolean("elevatorManualControl", false);
   }
 
   public double getEncoderDistance() {
-    double elevatorPosition = motor.getPosition(true).getValueAsDouble();
-    Logger.recordOutput(loggingPrefix + "encoder", elevatorPosition);
-    return elevatorPosition;
-    // return -m_encoder.getDistance();
+    return motor.getPosition().getValueAsDouble();
   }
 
   public void setGoal(double goal) {
     m_controller.setGoal(goal);
     this.goal = goal;
-    Logger.recordOutput(loggingPrefix + "goal", goal);
   }
 
   public double getGoal() {
@@ -80,21 +73,11 @@ public class Climb extends SubsystemBase {
       if (volts < 0) {
         sign = -1;
       }
-      if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
-        setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
-      } else {
-        setVoltage(-2);
-      }
 
-      // if (getEncoderDistance() < getGoal()) { // Go up, too low
-      //   Logger.recordOutput(loggingPrefix + "condition", 1);
-      //   setVoltage(MathUtil.clamp((getGoal() - getEncoderDistance()) / 50, -12.0, 12.0));
-      // } else if (getEncoderDistance() > getGoal()) { // Go down, too high
-      //   Logger.recordOutput(loggingPrefix + "condition", 2);
-      //   setVoltage(-MathUtil.clamp((getEncoderDistance() - getGoal()) / 50, -12.0, 12.0));
-      // }
+      setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
     } else {
-      Logger.recordOutput(loggingPrefix + "condition", 3);
+      // Stop driving, within acceptable goal
+      motor.setVoltage(0);
     }
   }
 
@@ -103,30 +86,16 @@ public class Climb extends SubsystemBase {
     Logger.recordOutput(loggingPrefix + "volts", volts);
   }
 
-  public void resetEncoder() {
-    // m_encoder.reset();
-  }
-
-  boolean hasStoppedElevator = false;
-
   @Override
   public void periodic() {
-    // Logger.recordOutput(loggingPrefix + "elevatorController", false);
-    // if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
-    //   updateMotorOutput();
-    //   Logger.recordOutput(loggingPrefix + "elevatorControlled", true);
-    //   hasStoppedElevator = false;
-    // } else {
-    //   if (!hasStoppedElevator) {
-    //     setVoltage(0);
-    //     hasStoppedElevator = true;
-    //   }
-    // }
-    updateMotorOutput();
-    // motor.setVoltagce(-1);
-    // setGoal(SmartDashboard.getNumber("elevatorGoal", 0));
+    if (closedLoopDisabled) {
+      System.out.println("WARNING: ELEVATOR GOING DOWN WHEN ENABLED!");
+      motor.setVoltage(-2);
+    } else {
+      updateMotorOutput();
+    }
+
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
     Logger.recordOutput(loggingPrefix + "encoder", getEncoderDistance());
-    // motor.setVoltage(-2);
   }
 }
