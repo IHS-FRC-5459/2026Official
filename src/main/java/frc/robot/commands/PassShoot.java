@@ -27,7 +27,7 @@ public class PassShoot extends Command {
   private final double indexerVolts = 12;
   private final double intakeSpeed = 0.2;
   private final double hoodGoal = 33;
-  private final double flywheelGoal = 30; // 130
+  private final double flywheelGoal = 40; // 130
   /** Creates a new Outtake. */
   public PassShoot(
       Flywheel s_flywheel,
@@ -63,7 +63,11 @@ public class PassShoot extends Command {
     //   s_pivot.goOpposite();
     // }
     // s_intake.setSpeed(intakeSpeed);
-    s_indexer.setVoltage(indexerVolts);
+    if (s_flywheel.isAtSetpoint() && s_hood.isAtSetpoint()) {
+      s_indexer.setVoltage(indexerVolts);
+    } else {
+      s_indexer.setVoltage(0);
+    }
     s_hood.setGoal(hoodGoal);
     s_flywheel.setGoal(flywheelGoal);
   }

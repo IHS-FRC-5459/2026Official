@@ -28,7 +28,7 @@ public class Hood extends SubsystemBase {
     hoodEncoder = new Encoder(Ports.HoodEncoderPort1, Ports.HoodEncoderPort2);
     hoodFeedforward = new ArmFeedforward(0, 0.58, 0);
     hoodPID = new PIDController(3.5, 6, 0.3);
-    hoodEncoder.setDistancePerPulse(38. / 1469.5);
+    hoodEncoder.setDistancePerPulse(41.7 / 1609.);
     // This happends to be about encoder dist = degrees of hood
     hoodEncoder.reset();
   }
@@ -55,7 +55,7 @@ public class Hood extends SubsystemBase {
   }
 
   public double getEncoderDeg() {
-    return getEncoderReading() + 13;
+    return getEncoderReading() + 12.8;
   }
 
   public double getEncoderRadians() {
