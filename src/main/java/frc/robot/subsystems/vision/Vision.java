@@ -76,6 +76,10 @@ public class Vision extends SubsystemBase {
   private final double defaultUniversalVisionStdDevMult = 1;
   private double universalVisionStdDevMult = defaultUniversalVisionStdDevMult;
 
+  // Toggle: true = feed only the best (lowest stdDevFactor) pose per camera,
+  //         false = feed all accepted poses (original behavior)
+  private static final boolean USE_BEST_POSE_PER_CAMERA = true;
+
   public void setUniversalVisionStdDevMult(double mult) {
     universalVisionStdDevMult = mult;
   }
@@ -93,12 +97,6 @@ public class Vision extends SubsystemBase {
         Logger.processInputs("Vision/Camera" + Integer.toString(i), inputs[i]);
       }
     }
-
-    // Initialize logging values
-    List<Pose3d> allTagPoses = new LinkedList<>();
-    List<Pose3d> allRobotPoses = new LinkedList<>();
-    List<Pose3d> allRobotPosesAccepted = new LinkedList<>();
-    List<Pose3d> allRobotPosesRejected = new LinkedList<>();
 
     // Loop over cameras
     for (int cameraIndex = 0; cameraIndex < io.length; cameraIndex++) {
@@ -118,6 +116,11 @@ public class Vision extends SubsystemBase {
       }
 
       // Loop over pose observations
+      VisionIO.PoseObservation bestObservation = null;
+      double bestStdDevFactor = Double.MAX_VALUE;
+      double bestLinearStdDev = 0;
+      double bestAngularStdDev = 0;
+
       for (var observation : inputs[cameraIndex].poseObservations) {
         // Check whether to reject pose
         boolean rejectPose =
@@ -137,14 +140,9 @@ public class Vision extends SubsystemBase {
         robotPoses.add(observation.pose());
         if (rejectPose) {
           robotPosesRejected.add(observation.pose());
-        } else {
-          robotPosesAccepted.add(observation.pose());
-        }
-
-        // Skip if rejected
-        if (rejectPose) {
           continue;
         }
+        robotPosesAccepted.add(observation.pose());
 
         // Calculate standard deviations
         double stdDevFactor =
@@ -160,12 +158,31 @@ public class Vision extends SubsystemBase {
           angularStdDev *= cameraStdDevFactors[cameraIndex];
         }
 
-        // Send vision observation
+        if (USE_BEST_POSE_PER_CAMERA) {
+          // Track the best (most trusted) observation for this camera
+          if (stdDevFactor < bestStdDevFactor) {
+            bestStdDevFactor = stdDevFactor;
+            bestObservation = observation;
+            bestLinearStdDev = linearStdDev;
+            bestAngularStdDev = angularStdDev;
+          }
+        } else {
+          // Original behavior: send every accepted observation
+          consumer.accept(
+              observation.pose().toPose2d(),
+              observation.timestamp(),
+              VecBuilder.fill(linearStdDev, linearStdDev, angularStdDev)
+                  .times(getUniversalVisionStdDevMult()));
+        }
+      }
+
+      // Send the single best observation for this camera (only when USE_BEST_POSE_PER_CAMERA)
+      if (USE_BEST_POSE_PER_CAMERA && bestObservation != null) {
         consumer.accept(
-            observation.pose().toPose2d(),
-            observation.timestamp(),
-            VecBuilder.fill(linearStdDev, linearStdDev, angularStdDev)
-                .times(getUniversalVisionStdDevMult())); // Added to make less jumpy
+            bestObservation.pose().toPose2d(),
+            bestObservation.timestamp(),
+            VecBuilder.fill(bestLinearStdDev, bestLinearStdDev, bestAngularStdDev)
+                .times(getUniversalVisionStdDevMult()));
       }
       // Log camera metadata
       Logger.recordOutput(
@@ -180,19 +197,7 @@ public class Vision extends SubsystemBase {
       Logger.recordOutput(
           "Vision/Camera" + Integer.toString(cameraIndex) + "/RobotPosesRejected",
           robotPosesRejected.toArray(new Pose3d[0]));
-      allTagPoses.addAll(tagPoses);
-      allRobotPoses.addAll(robotPoses);
-      allRobotPosesAccepted.addAll(robotPosesAccepted);
-      allRobotPosesRejected.addAll(robotPosesRejected);
     }
-
-    // Log summary data
-    Logger.recordOutput("Vision/Summary/TagPoses", allTagPoses.toArray(new Pose3d[0]));
-    Logger.recordOutput("Vision/Summary/RobotPoses", allRobotPoses.toArray(new Pose3d[0]));
-    Logger.recordOutput(
-        "Vision/Summary/RobotPosesAccepted", allRobotPosesAccepted.toArray(new Pose3d[0]));
-    Logger.recordOutput(
-        "Vision/Summary/RobotPosesRejected", allRobotPosesRejected.toArray(new Pose3d[0]));
   }
 
   @FunctionalInterface
