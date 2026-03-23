@@ -41,6 +41,7 @@ import frc.robot.commands.PassShoot;
 import frc.robot.commands.Reverse;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootHub;
 // import frc.robot.commands.ClimbRight;
 import frc.robot.commands.ShootAlign;
 import frc.robot.generated.TunerConstants;
@@ -251,6 +252,9 @@ public class RobotContainer {
     operator
         .rightTrigger(0.2)
         .whileTrue(new Shoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
+    operator
+        .povLeft()
+        .whileTrue(new ShootHub(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
     operator.b().whileTrue(new PassShoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
     operator.x().whileTrue(new RunIntake(s_intake));
     operator.povRight().whileTrue(new ElevatorHalfway(s_climb));
@@ -269,13 +273,13 @@ public class RobotContainer {
                   s_pivot.setGoal(90);
                 })); // pIOT UP
     operator.back().whileTrue(new Reverse(s_indexer));
-    operator
-        .povLeft()
-        .onTrue(
-            new InstantCommand(
-                () -> {
-                  s_flywheel.setGoal(0);
-                }));
+    // operator
+    //     .povLeft()
+    //     .onTrue(
+    //         new InstantCommand(
+    //             () -> {
+    //               s_flywheel.setGoal(0);
+    //             }));
     operator
         .povUp()
         .onTrue(
