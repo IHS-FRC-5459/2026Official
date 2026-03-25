@@ -41,9 +41,9 @@ import frc.robot.commands.PassShoot;
 import frc.robot.commands.Reverse;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootAlign;
 import frc.robot.commands.ShootHub;
 // import frc.robot.commands.ClimbRight;
-import frc.robot.commands.ShootAlign;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Flywheel;
@@ -263,7 +263,7 @@ public class RobotContainer {
         .onTrue(
             new InstantCommand(
                 () -> {
-                  s_pivot.setGoal(-15);
+                  s_pivot.setGoal(-20);
                 })); // Pivot down
     operator
         .y()
@@ -328,18 +328,20 @@ public class RobotContainer {
     // SmartDashboard.putNumber("pivotPID_I", 1);
     // SmartDashboard.putNumber("pivotPID_D", 0);
     // SmartDashboard.putNumber("pivotFF_G", 0.8);
+
     // SmartDashboard.putNumber("hoodPID_P", 0);
     // SmartDashboard.putNumber("hoodPID_I", 0);
     // SmartDashboard.putNumber("hoodPID_D", 0);
-    // SmartDashboard.putNumber("hoodFF_G", 0);
-    // SmartDashboard.putNumber("hoodGoalTesting", 0);]\[]
-    SmartDashboard.putNumber("intakePower", 0);
+    // SmartDashboard.putNumber("hoodFF_G", 0.58);
+    // SmartDashboard.putNumber("hoodGoalTesting", 0);
+    // SmartDashboard.putNumber("intakePower", 0);
 
     // SmartDashboard.putNumber("flywheelSpeed", 0);
     // SmartDashboard.putNumber("hoodAngle", 0);
     // SmartDashboard.putNumber("indexerVolts", 0.7);
     // SmartDashboard.putNumber("elevatorGoal", 0);
     SmartDashboard.putBoolean("elevatorManualControl", false);
+    // SmartDashboard.putNumber("hoodGoalTesting", 0);
 
     // SmartDashboard.putNumber("beltSpeed", 0);
     // SmartDashboard.putNumber("intakeSpeed", 0);

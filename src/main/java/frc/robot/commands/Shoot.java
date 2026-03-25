@@ -9,7 +9,6 @@ import static frc.robot.subsystems.vision.VisionConstants.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
@@ -34,20 +33,20 @@ public class Shoot extends Command {
 
   // Format: distance from hub(diagonally) in m, optimized hood goal, optimized flywheel goal
   private final double[][] lookupTable = {
-    {0.5,47},
-    {1.2444,0,0},//3ft marking
-    {1.5492,0,0},//4ft marking
-    {1.854,0,0},//5ft ...
-    {2.16,26,37},//6ft
-    {2.46,29.25,37.25},//7ft
-    {2.77,29.5,39},//8ft
-    {3.07,30.25,40.8},//9ft
-    {3.38,31.5,42.5},//10ft
-    {3.68,35,43.5},//11ft
-    {3.99,36,46},//12ft
-    {4.29,38,46.4},//13ft
-    {4.6,38.5,47},//14ft
-    {10,40,60}
+    {0.5, 47},
+    {1.2444, 10, 35.5}, // 3ft marking
+    {1.5492, 18.5, 35.75}, // 4ft marking
+    {1.854, 23.5, 36}, // 5ft ...
+    {2.16, 26, 37}, // 6ft
+    {2.46, 29.25, 37.25}, // 7ft
+    {2.77, 29.5, 39}, // 8ft
+    {3.07, 30.25, 40.8}, // 9ft
+    {3.38, 31.5, 42.5}, // 10ft
+    {3.68, 35, 43.5}, // 11ft
+    {3.99, 36, 46}, // 12ft
+    {4.29, 38, 46.4}, // 13ft
+    {4.6, 38.5, 47}, // 14ft
+    {10, 40, 60}
   };
   public double operatorOffset = 0;
   /** Creates a new Outtake. */
@@ -105,7 +104,9 @@ public class Shoot extends Command {
         Math.sqrt(
             Math.pow(Math.abs(hubPose.getX() - currPose.getX()), 2)
                 + Math.pow(Math.abs(hubPose.getY() - currPose.getY()), 2));
-      
+
+    distToHub -= 0.0508; // We were consistently estimating 2 in farther than we were
+
     double[] oneCloserVals = lookupTable[0];
     double[] oneFartherVals = lookupTable[lookupTable.length - 1];
     for (int i = 0; i < lookupTable.length; i++) {
@@ -130,10 +131,10 @@ public class Shoot extends Command {
     Logger.recordOutput(loggingPrefix + "interpolatedHood", interpolatedHoodGoal);
     Logger.recordOutput(loggingPrefix + "interpolatedFlywheel", interpolatedFlywheelGoal);
 
-    // s_hood.setGoal(interpolatedHoodGoal);
-    // s_flywheel.setGoal(interpolatedFlywheelGoal);
-    s_hood.setGoal(SmartDashboard.getNumber("interpolationHoodGoal", 0));
-    s_flywheel.setGoal(SmartDashboard.getNumber("interpolationFlywheelGoal", 0));
+    s_hood.setGoal(interpolatedHoodGoal);
+    s_flywheel.setGoal(interpolatedFlywheelGoal);
+    // s_hood.setGoal(SmartDashboard.getNumber("interpolationHoodGoal", 0));
+    // s_flywheel.setGoal(SmartDashboard.getNumber("interpolationFlywheelGoal", 0));
 
     // Agitation
     long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
@@ -141,10 +142,10 @@ public class Shoot extends Command {
     // if (s_pivot.isAtSetpoint()) {
     //   lastAgitation = System.currentTimeMillis();
     //   if (s_pivot.getGoal() == -15) {
-    //     s_pivot.setGoal(20);
+    // s_pivot.setGoal(20);
     //     Logger.recordOutput(loggingPrefix + "changing", "down");
     //   } else {
-    //     s_pivot.setGoal(-15);
+    // s_pivot.setGoal(-15);
     //     Logger.recordOutput(loggingPrefix + "changing", "up");
     //   }
     if (System.currentTimeMillis() - startOfCommand > 500) {
@@ -197,7 +198,7 @@ public class Shoot extends Command {
     s_intake.setSpeed(0);
     s_indexer.setVoltage(0);
     s_flywheel.setGoal(0);
-    // s_hood.setGoal(13);
+    s_hood.setGoal(13);
     s_pivot.setP(1.2);
   }
 

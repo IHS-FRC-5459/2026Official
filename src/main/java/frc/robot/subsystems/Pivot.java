@@ -127,10 +127,10 @@ public class Pivot extends SubsystemBase {
     // pivotPID.setI(SmartDashboard.getNumber("pivotPID_I", pivotPID.getI()));
     // pivotPID.setD(SmartDashboard.getNumber("pivotPID_D", pivotPID.getD()));
     // pivotFeedforward.setKg(SmartDashboard.getNumber("pivotFF_G", pivotFeedforward.getKg()));
-    // Logger.recordOutput(loggingPrefix + "kP", pivotPID.getP());
-    // Logger.recordOutput(loggingPrefix + "kI", pivotPID.getI());
-    // Logger.recordOutput(loggingPrefix + "kD", pivotPID.getD());
-    // Logger.recordOutput(loggingPrefix + "kG", pivotFeedforward.getKg());
+    Logger.recordOutput(loggingPrefix + "kP", pivotPID.getP());
+    Logger.recordOutput(loggingPrefix + "kI", pivotPID.getI());
+    Logger.recordOutput(loggingPrefix + "kD", pivotPID.getD());
+    Logger.recordOutput(loggingPrefix + "kG", pivotFeedforward.getKg());
     // This method will be called once per scheduler run
     Logger.recordOutput(loggingPrefix + "EncoderReading", getEncoderDist());
     SmartDashboard.putNumber("PivotEncoder", getEncoderDist());

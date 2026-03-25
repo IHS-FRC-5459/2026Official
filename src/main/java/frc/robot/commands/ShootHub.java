@@ -4,11 +4,8 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.Inches;
 import static frc.robot.subsystems.vision.VisionConstants.*;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Flywheel;
@@ -20,7 +17,7 @@ import frc.robot.subsystems.drive.Drive;
 import org.littletonrobotics.junction.Logger;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Shoot extends Command {
+public class ShootHub extends Command {
   private Flywheel s_flywheel;
   private Indexer s_indexer;
   private Intake s_intake;
@@ -53,7 +50,7 @@ public class Shoot extends Command {
   };
   public double operatorOffset = 0;
   /** Creates a new Outtake. */
-  public Shoot(
+  public ShootHub(
       Flywheel s_flywheel,
       Indexer s_indexer,
       Intake s_intake,
@@ -98,8 +95,8 @@ public class Shoot extends Command {
     s_hood.setGoal(SmartDashboard.getNumber("interpolationHoodGoal", 0));
     s_flywheel.setGoal(SmartDashboard.getNumber("interpolationFlywheelGoal", 0));
 
-    // s_hood.setGoal(5);
-    // s_flywheel.setGoal(45);
+    // s_hood.setGoal(10);
+    // s_flywheel.setGoal(35.5);
 
     // Agitation
     long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
