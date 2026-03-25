@@ -95,6 +95,7 @@ public class Climb extends SubsystemBase {
       // }
     } else {
       // Logger.recordOutput(loggingPrefix + "condition", 3);
+      setVoltage(0);
     }
   }
 

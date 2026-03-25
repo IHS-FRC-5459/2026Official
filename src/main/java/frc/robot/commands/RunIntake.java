@@ -26,7 +26,7 @@ public class RunIntake extends Command {
   @Override
   public void execute() {
     // s_intake.setSpeed(SmartDashboard.getNumber("intakePower", 0));
-    s_intake.setSpeed(0.35);
+    s_intake.setSpeed(0.42);
   }
 
   // Called once the command ends or is interrupted.

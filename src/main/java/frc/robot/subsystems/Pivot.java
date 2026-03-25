@@ -41,8 +41,8 @@ public class Pivot extends SubsystemBase {
     // Apply configuration to motor
     pivotController.getConfigurator().apply(currentLimits);
     pivotEncoder = new Encoder(Ports.PivotEncoderPort1, Ports.PivotEncoderPort2);
-    pivotFeedforward = new ArmFeedforward(0, 0.8, 0);
-    pivotPID = new PIDController(3, 1, 0);
+    pivotFeedforward = new ArmFeedforward(0, 0.4, 0);
+    pivotPID = new PIDController(2.5, 0.5, 0);
     pivotEncoder.setDistancePerPulse(0.02 * (90 / 10.45));
     // This happends to be about encoder dist = degrees of pivot
     pivotEncoder.reset();
@@ -127,10 +127,10 @@ public class Pivot extends SubsystemBase {
     // pivotPID.setI(SmartDashboard.getNumber("pivotPID_I", pivotPID.getI()));
     // pivotPID.setD(SmartDashboard.getNumber("pivotPID_D", pivotPID.getD()));
     // pivotFeedforward.setKg(SmartDashboard.getNumber("pivotFF_G", pivotFeedforward.getKg()));
-    Logger.recordOutput(loggingPrefix + "kP", pivotPID.getP());
-    Logger.recordOutput(loggingPrefix + "kI", pivotPID.getI());
-    Logger.recordOutput(loggingPrefix + "kD", pivotPID.getD());
-    Logger.recordOutput(loggingPrefix + "kG", pivotFeedforward.getKg());
+    // Logger.recordOutput(loggingPrefix + "kP", pivotPID.getP());
+    // Logger.recordOutput(loggingPrefix + "kI", pivotPID.getI());
+    // Logger.recordOutput(loggingPrefix + "kD", pivotPID.getD());
+    // Logger.recordOutput(loggingPrefix + "kG", pivotFeedforward.getKg());
     // This method will be called once per scheduler run
     Logger.recordOutput(loggingPrefix + "EncoderReading", getEncoderDist());
     SmartDashboard.putNumber("PivotEncoder", getEncoderDist());
