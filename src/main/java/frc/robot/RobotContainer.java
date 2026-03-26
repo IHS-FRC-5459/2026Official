@@ -38,7 +38,7 @@ import frc.robot.commands.ElevatorUp;
 import frc.robot.commands.FlywheelSpinUp;
 import frc.robot.commands.PassAlign;
 import frc.robot.commands.PassShoot;
-import frc.robot.commands.Reverse;
+import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShootAlign;
@@ -272,7 +272,7 @@ public class RobotContainer {
                 () -> {
                   s_pivot.setGoal(90);
                 })); // pIOT UP
-    operator.back().whileTrue(new Reverse(s_indexer));
+    operator.back().whileTrue(new ReverseIntake(s_intake));
     // operator
     //     .povLeft()
     //     .onTrue(

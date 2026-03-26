@@ -84,7 +84,7 @@ public class Shoot extends Command {
     if (s_drive.getIsAuto()) {
       maxNumChanges = 4;
     } else {
-      maxNumChanges = 8;
+      maxNumChanges = 6;
     }
     s_hood.resetPID();
   }
@@ -153,7 +153,7 @@ public class Shoot extends Command {
         numChanges++;
         lastAgitation = System.currentTimeMillis();
         if (numChanges == maxNumChanges) {
-          s_pivot.setGoal(90);
+          // s_pivot.setGoal(90);
           s_intake.setSpeed(0);
           if (!s_pivot.isAtSetpoint()) {
             numChanges--;
