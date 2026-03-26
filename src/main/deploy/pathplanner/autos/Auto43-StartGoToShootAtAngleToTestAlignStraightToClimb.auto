@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Auto42-GoFromLeftBumpToBackRight"
+            "pathName": "Auto43-AlignToShootGoToHub"
           }
         },
         {
@@ -69,7 +69,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Auto42-GoFromBackRightToRightClimbGeneralPosition"
+            "pathName": "Auto43-GoFromShootAlignAtAngleToStraightToRightClimbPosition"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Auto22-GoFromRightClimbPositionToClimb"
           }
         },
         {

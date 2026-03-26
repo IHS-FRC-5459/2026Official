@@ -17,6 +17,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "elevatorUp"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -46,12 +52,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorUp"
           }
         },
         {
@@ -90,12 +90,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeDown"
           }
         },
         {
