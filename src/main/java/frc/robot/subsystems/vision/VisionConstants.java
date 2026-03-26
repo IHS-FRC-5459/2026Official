@@ -37,8 +37,8 @@ public class VisionConstants {
           new Rotation3d(0, Math.toRadians(-30), Math.toRadians(15))); // 15
   public static Transform3d robotToCamera2 =
       new Transform3d(
-          new Translation3d(-0.16, 0.115, 0.527),
-          new Rotation3d(0, Math.toRadians(-5), Math.toRadians(175)));
+          new Translation3d(-0.17, 0.278, 0.52324),
+          new Rotation3d(0, Math.toRadians(-5), Math.toRadians(137.5)));
   public static Transform3d robotToCamera3 =
       new Transform3d(
           new Translation3d(-0.16, -0.115, 0.527),

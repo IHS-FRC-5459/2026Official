@@ -38,11 +38,12 @@ import frc.robot.commands.ElevatorUp;
 import frc.robot.commands.FlywheelSpinUp;
 import frc.robot.commands.PassAlign;
 import frc.robot.commands.PassShoot;
-import frc.robot.commands.Reverse;
+import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
-// import frc.robot.commands.ClimbRight;
 import frc.robot.commands.ShootAlign;
+import frc.robot.commands.ShootHub;
+// import frc.robot.commands.ClimbRight;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Flywheel;
@@ -251,6 +252,9 @@ public class RobotContainer {
     operator
         .rightTrigger(0.2)
         .whileTrue(new Shoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
+    operator
+        .povLeft()
+        .whileTrue(new ShootHub(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
     operator.b().whileTrue(new PassShoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
     operator.x().whileTrue(new RunIntake(s_intake));
     operator.povRight().whileTrue(new ElevatorHalfway(s_climb));
@@ -259,7 +263,7 @@ public class RobotContainer {
         .onTrue(
             new InstantCommand(
                 () -> {
-                  s_pivot.setGoal(-15);
+                  s_pivot.setGoal(-20);
                 })); // Pivot down
     operator
         .y()
@@ -268,14 +272,14 @@ public class RobotContainer {
                 () -> {
                   s_pivot.setGoal(90);
                 })); // pIOT UP
-    operator.back().whileTrue(new Reverse(s_indexer));
-    operator
-        .povLeft()
-        .onTrue(
-            new InstantCommand(
-                () -> {
-                  s_flywheel.setGoal(0);
-                }));
+    operator.back().whileTrue(new ReverseIntake(s_intake));
+    // operator
+    //     .povLeft()
+    //     .onTrue(
+    //         new InstantCommand(
+    //             () -> {
+    //               s_flywheel.setGoal(0);
+    //             }));
     operator
         .povUp()
         .onTrue(
@@ -319,22 +323,25 @@ public class RobotContainer {
     // SmartDashboard.putNumber("omegaPID_D", 0.02);
     // SmartDashboard.putNumber("omegaFF_S", 0.15);
     // SmartDashboard.putNumber("climbVolts", 0);
-    // SmartDashboard.putNumber("pivotGoal", 90);
-    // SmartDashboard.putNumber("pivotPID_P", 2);
-    // SmartDashboard.putNumber("pivotPID_I", 1);
-    // SmartDashboard.putNumber("pivotPID_D", 0);
-    // SmartDashboard.putNumber("pivotFF_G", 0.8);
+    SmartDashboard.putNumber("pivotGoal", 90);
+    SmartDashboard.putNumber("pivotPID_P", 2);
+    SmartDashboard.putNumber("pivotPID_I", 1);
+    SmartDashboard.putNumber("pivotPID_D", 0);
+    SmartDashboard.putNumber("pivotFF_G", 0.8);
+
     // SmartDashboard.putNumber("hoodPID_P", 0);
     // SmartDashboard.putNumber("hoodPID_I", 0);
     // SmartDashboard.putNumber("hoodPID_D", 0);
-    // SmartDashboard.putNumber("hoodFF_G", 0);
+    // SmartDashboard.putNumber("hoodFF_G", 0.58);
     // SmartDashboard.putNumber("hoodGoalTesting", 0);
+    // SmartDashboard.putNumber("intakePower", 0);
 
     // SmartDashboard.putNumber("flywheelSpeed", 0);
     // SmartDashboard.putNumber("hoodAngle", 0);
     // SmartDashboard.putNumber("indexerVolts", 0.7);
     // SmartDashboard.putNumber("elevatorGoal", 0);
     SmartDashboard.putBoolean("elevatorManualControl", false);
+    // SmartDashboard.putNumber("hoodGoalTesting", 0);
 
     // SmartDashboard.putNumber("beltSpeed", 0);
     // SmartDashboard.putNumber("intakeSpeed", 0);

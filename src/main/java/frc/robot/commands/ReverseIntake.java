@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class RunIntake extends Command {
+public class ReverseIntake extends Command {
   private Intake s_intake;
   /** Creates a new Intake. */
-  public RunIntake(Intake s_intake) {
+  public ReverseIntake(Intake s_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_intake);
     this.s_intake = s_intake;
@@ -26,7 +26,7 @@ public class RunIntake extends Command {
   @Override
   public void execute() {
     // s_intake.setSpeed(SmartDashboard.getNumber("intakePower", 0));
-    s_intake.setSpeed(0.42);
+    s_intake.setSpeed(-0.5);
   }
 
   // Called once the command ends or is interrupted.

@@ -94,7 +94,8 @@ public class Climb extends SubsystemBase {
       //   setVoltage(-MathUtil.clamp((getEncoderDistance() - getGoal()) / 50, -12.0, 12.0));
       // }
     } else {
-      Logger.recordOutput(loggingPrefix + "condition", 3);
+      // Logger.recordOutput(loggingPrefix + "condition", 3);
+      setVoltage(0);
     }
   }
 

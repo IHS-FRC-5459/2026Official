@@ -17,6 +17,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "elevatorUp"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -46,12 +52,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorUp"
           }
         },
         {
@@ -96,12 +96,6 @@
           "type": "path",
           "data": {
             "pathName": "Auto8-ShootGoToRightClimb"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeDown"
           }
         },
         {

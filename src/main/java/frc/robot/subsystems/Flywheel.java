@@ -89,7 +89,7 @@ public class Flywheel extends SubsystemBase {
   }
 
   public boolean isAtSetpoint() {
-    return Math.abs(Math.abs(m_fx.getVelocity(true).getValueAsDouble()) - getGoal()) < 5;
+    return Math.abs(Math.abs(m_fx.getVelocity().getValueAsDouble()) - getGoal()) < 2;
     // && Math.abs(Math.abs(m_fx2.getVelocity(true).getValueAsDouble()) - getGoal()) < 5;
   }
 
@@ -106,10 +106,9 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    Logger.recordOutput(loggingPrefix + "flywheelObserved1", m_fx.getVelocity().getValueAsDouble());
     Logger.recordOutput(
-        loggingPrefix + "flywheelObserved1", m_fx.getVelocity(true).getValueAsDouble());
-    Logger.recordOutput(
-        loggingPrefix + "flywheelObserved2", m_fx2.getVelocity(true).getValueAsDouble());
+        loggingPrefix + "flywheelObserved2", m_fx2.getVelocity().getValueAsDouble());
     Logger.recordOutput(loggingPrefix + "commanded1", m_fx.getAppliedControl().toString());
     Logger.recordOutput(loggingPrefix + "commanded2", m_fx2.getAppliedControl().toString());
 

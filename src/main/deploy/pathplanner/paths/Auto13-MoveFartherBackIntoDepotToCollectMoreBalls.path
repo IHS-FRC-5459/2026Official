@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.685,
-        "y": 5.945
+        "x": 2.062,
+        "y": 5.321
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.4227611120720567,
-        "y": 5.945
+        "x": 1.8298430345149006,
+        "y": 5.413753131358194
       },
       "isLocked": false,
       "linkedName": null
@@ -32,8 +32,8 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.0,
-      "maxWaypointRelativePos": 0.3330702446724542,
+      "minWaypointRelativePos": 0.7,
+      "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
         "maxAcceleration": 0.5,
@@ -56,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -22.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Ben's Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -22.0
+    "rotation": -29.999999999999996
   },
   "useDefaultConstraints": true
 }

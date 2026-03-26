@@ -161,6 +161,7 @@ public class Drive extends SubsystemBase {
   }
 
   Field2d field = new Field2d();
+  int count = 0;
 
   @Override
   public void periodic() {
@@ -232,9 +233,12 @@ public class Drive extends SubsystemBase {
     // Update gyro alert
     gyroDisconnectedAlert.set(!gyroInputs.connected && Constants.currentMode != Mode.SIM);
     Logger.recordOutput("Est pose drive subsystem", poseEstimator.getEstimatedPosition());
-
-    field.setRobotPose(getPose());
-    SmartDashboard.putData("FieldWithRobot", field);
+    if (count % 60 == 0) {
+      field.setRobotPose(getPose());
+      SmartDashboard.putData("FieldWithRobot", field);
+      count = 0;
+    }
+    count++;
   }
 
   /**

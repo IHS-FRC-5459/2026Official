@@ -19,16 +19,16 @@ public class Hood extends SubsystemBase {
   private final Encoder hoodEncoder;
   private final ArmFeedforward hoodFeedforward;
   private final PIDController hoodPID;
-  private double hoodSetpoint = 13;
+  private double hoodSetpoint = 5;
 
   private final String loggingPrefix = "subsystems/hood/";
 
   public Hood() {
     hoodController = new SparkMax(Motors.hoodId, MotorType.kBrushless);
     hoodEncoder = new Encoder(Ports.HoodEncoderPort1, Ports.HoodEncoderPort2);
-    hoodFeedforward = new ArmFeedforward(0, 0.58, 0);
-    hoodPID = new PIDController(3.5, 6, 0.3);
-    hoodEncoder.setDistancePerPulse(38. / 1469.5);
+    hoodFeedforward = new ArmFeedforward(0, 0.25424647, 0);
+    hoodPID = new PIDController(5.3, 2, 0.01);
+    hoodEncoder.setDistancePerPulse(41.7 / 1609.);
     // This happends to be about encoder dist = degrees of hood
     hoodEncoder.reset();
   }
@@ -55,7 +55,7 @@ public class Hood extends SubsystemBase {
   }
 
   public double getEncoderDeg() {
-    return getEncoderReading() + 13;
+    return getEncoderReading() + 5;
   }
 
   public double getEncoderRadians() {
@@ -91,6 +91,8 @@ public class Hood extends SubsystemBase {
     Logger.recordOutput(loggingPrefix + "EncoderDeg", getEncoderDeg());
 
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
+    Logger.recordOutput(loggingPrefix + "atSetpoint", isAtSetpoint());
+    Logger.recordOutput(loggingPrefix + "diff", getGoal() - getEncoderDeg());
     updateMotorOutput();
     // setGoal(SmartDashboard.getNumber("hoodGoalTesting", 0));
     Logger.recordOutput(loggingPrefix + "debug", hoodController.getOutputCurrent());
