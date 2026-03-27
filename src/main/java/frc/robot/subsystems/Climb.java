@@ -74,28 +74,20 @@ public class Climb extends SubsystemBase {
   }
 
   public void updateMotorOutput() {
-    if (Math.abs(getEncoderDistance() - getGoal()) > 1.192857) {
-      double volts = (getGoal() - getEncoderDistance()) / 13;
-      int sign = 1;
-      if (volts < 0) {
-        sign = -1;
-      }
-      if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
+    if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
+      if (Math.abs(getEncoderDistance() - getGoal()) > 1.192857) {
+        double volts = (getGoal() - getEncoderDistance()) / 13;
+        int sign = 1;
+        if (volts < 0) {
+          sign = -1;
+        }
         setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
       } else {
-        setVoltage(-2);
+        // Logger.recordOutput(loggingPrefix + "condition", 3);
+        setVoltage(0);
       }
-
-      // if (getEncoderDistance() < getGoal()) { // Go up, too low
-      //   Logger.recordOutput(loggingPrefix + "condition", 1);
-      //   setVoltage(MathUtil.clamp((getGoal() - getEncoderDistance()) / 50, -12.0, 12.0));
-      // } else if (getEncoderDistance() > getGoal()) { // Go down, too high
-      //   Logger.recordOutput(loggingPrefix + "condition", 2);
-      //   setVoltage(-MathUtil.clamp((getEncoderDistance() - getGoal()) / 50, -12.0, 12.0));
-      // }
     } else {
-      // Logger.recordOutput(loggingPrefix + "condition", 3);
-      setVoltage(0);
+      setVoltage(-2);
     }
   }
 
