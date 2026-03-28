@@ -62,6 +62,14 @@ public class VisionConstants {
         27 // Camera 3
       };
 
+  public static final double[] cameraStdDevFactorsFinal =
+      new double[] {
+        15, // Camera 0
+        10, // Camera 1
+        15, // Camera 2
+        27 // Camera 3
+      };
+
   // Multipliers to apply for MegaTag 2 observations
   public static double linearStdDevMegatag2Factor = 0.5; // More stable than full 3D solve
   public static double angularStdDevMegatag2Factor =

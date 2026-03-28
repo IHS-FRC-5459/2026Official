@@ -13,6 +13,8 @@
 
 package frc.robot;
 
+import static frc.robot.subsystems.vision.VisionConstants.cameraStdDevFactorsFinal;
+
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.DriveMotorArrangement;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerMotorArrangement;
@@ -161,6 +163,9 @@ public class Robot extends LoggedRobot {
     // this line or comment it out.
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
+    }
+    for (int i = 0; i < robotContainer.vision.getCameraStdDevFactors().length; i++) {
+      robotContainer.vision.setCameraStdDevMult(i, cameraStdDevFactorsFinal[i]);
     }
     // robotContainer.s_hood.resetEncoder();
     robotContainer.s_hood.resetPID();

@@ -78,7 +78,7 @@ public class RobotContainer {
   private Flywheel s_flywheel;
   public Hood s_hood;
   // private final Vision vision
-  private Vision vision;
+  public Vision vision;
   // Sensors
   private Pigeon2 pigeon;
   private CANdle candle;
@@ -192,7 +192,14 @@ public class RobotContainer {
               s_pivot.setGoal(-15);
             }));
     NamedCommands.registerCommand("elevatorHalfway", new ElevatorHalfway(s_climb));
-
+    NamedCommands.registerCommand(
+        "disableOtherCams",
+        new InstantCommand(
+            () -> {
+              vision.setCameraStdDevMult(0, 9999);
+              vision.setCameraStdDevMult(1, 9999);
+              vision.setCameraStdDevMult(3, 9999);
+            }));
     // Set up auto routines
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);

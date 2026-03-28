@@ -90,6 +90,14 @@ public class Vision extends SubsystemBase {
     return universalVisionStdDevMult;
   }
 
+  public void setCameraStdDevMult(int index, double mult) {
+    cameraStdDevFactors[index] = mult;
+  }
+
+  public double[] getCameraStdDevFactors() {
+    return cameraStdDevFactors;
+  }
+
   @Override
   public void periodic() {
     for (int i = 0; i < io.length; i++) {

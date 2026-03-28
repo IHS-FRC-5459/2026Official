@@ -193,6 +193,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "disableOtherCams"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Auto22-GoFromRightClimbPositionToClimb"
