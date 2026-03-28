@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Auto1-AlignToShootGoToHub"
+            "pathName": "Auto44-RightGoToShootAtAFartherBackPosition"
           }
         },
         {
@@ -63,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Auto22-GoFromShooterStraightToRightClimbPosition"
+            "pathName": "Auto44-GoFromShootToRightClimbPosition"
           }
         },
         {

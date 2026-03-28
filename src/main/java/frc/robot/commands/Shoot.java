@@ -107,6 +107,7 @@ public class Shoot extends Command {
 
     distToHub -= 0.0508; // We were consistently estimating 2 in farther than we were
     // distToHub -= 0.08;
+    distToHub += s_flywheel.getOperatorOffset();
     double[] oneCloserVals = lookupTable[0];
     double[] oneFartherVals = lookupTable[lookupTable.length - 1];
     for (int i = 0; i < lookupTable.length; i++) {

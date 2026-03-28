@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.526,
-        "y": 5.896
+        "x": 3.572,
+        "y": 4.058
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0837948717948738,
-        "y": 7.000192307698121
+        "x": 2.2465897435897455,
+        "y": 5.383871794871795
       },
       "isLocked": false,
       "linkedName": null
@@ -83,13 +83,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 112.5
+    "rotation": 70.0
   },
   "reversed": false,
   "folder": "Ben's Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -35.754
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

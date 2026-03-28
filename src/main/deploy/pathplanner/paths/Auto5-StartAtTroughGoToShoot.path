@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.8252431791221837,
-        "y": 1.8885409252669034
+        "x": 1.739,
+        "y": 2.416
       },
       "prevControl": {
-        "x": 2.7290154211150655,
-        "y": 1.3505812574139964
+        "x": 2.618692307692309,
+        "y": 1.5465641025641026
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 40.42607874009915
+    "rotation": 23.5
   },
   "reversed": false,
   "folder": "Ben's Auto",
