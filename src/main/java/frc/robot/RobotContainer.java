@@ -196,9 +196,9 @@ public class RobotContainer {
         "disableOtherCams",
         new InstantCommand(
             () -> {
-              vision.setCameraStdDevMult(0, 9999);
-              vision.setCameraStdDevMult(1, 9999);
-              vision.setCameraStdDevMult(3, 9999);
+              vision.setCameraStdDevMult(0, 23);
+              vision.setCameraStdDevMult(1, 23);
+              vision.setCameraStdDevMult(3, 23);
             }));
     // Set up auto routines
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -262,7 +262,7 @@ public class RobotContainer {
     operator
         .povLeft()
         .whileTrue(new ShootHub(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
-    operator.b().whileTrue(new PassShoot(s_flywheel, s_indexer, s_intake, s_pivot, s_hood, drive));
+    operator.b().whileTrue(new PassShoot(s_flywheel, s_indexer, s_hood, drive));
     operator.x().whileTrue(new RunIntake(s_intake));
     operator.povRight().whileTrue(new ElevatorHalfway(s_climb));
     operator
@@ -292,14 +292,14 @@ public class RobotContainer {
         .onTrue(
             new InstantCommand(
                 () -> {
-                  s_flywheel.changeOperatorOffset(0.1);
+                  s_flywheel.changeOperatorOffset(0.05);
                 }));
     operator
         .povDown()
         .onTrue(
             new InstantCommand(
                 () -> {
-                  s_flywheel.changeOperatorOffset(-0.1);
+                  s_flywheel.changeOperatorOffset(-0.05);
                 }));
     // operator.back().onTrue(new InstantCommand()->{
     // s_pivot.resetPID();
@@ -351,7 +351,7 @@ public class RobotContainer {
     // SmartDashboard.putNumber("hoodGoalTesting", 0);
 
     // SmartDashboard.putNumber("beltSpeed", 0);
-    // SmartDashboard.putNumber("intakeSpeed", 0);
+    SmartDashboard.putNumber("intakePower", 0);
   }
 
   /**

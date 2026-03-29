@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
@@ -25,8 +26,8 @@ public class RunIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // s_intake.setSpeed(SmartDashboard.getNumber("intakePower", 0));
-    s_intake.setSpeed(0.42);
+    s_intake.setSpeed(SmartDashboard.getNumber("intakePower", 0));
+    // s_intake.setSpeed(0.20); // changed from 0.42
   }
 
   // Called once the command ends or is interrupted.

@@ -140,15 +140,6 @@ public class Shoot extends Command {
     // Agitation
     long timeSinceLastAgitation = System.currentTimeMillis() - lastAgitation;
     Logger.recordOutput(loggingPrefix + "timeSinceLastAgitation", timeSinceLastAgitation);
-    // if (s_pivot.isAtSetpoint()) {
-    //   lastAgitation = System.currentTimeMillis();
-    //   if (s_pivot.getGoal() == -15) {
-    // s_pivot.setGoal(20);
-    //     Logger.recordOutput(loggingPrefix + "changing", "down");
-    //   } else {
-    // s_pivot.setGoal(-15);
-    //     Logger.recordOutput(loggingPrefix + "changing", "up");
-    //   }
     if (System.currentTimeMillis() - startOfCommand > 500) {
       if (timeSinceLastAgitation > agitationIntervalTime) {
         numChanges++;
@@ -164,7 +155,7 @@ public class Shoot extends Command {
           s_pivot.setGoal(-15);
           Logger.recordOutput(loggingPrefix + "changing", "allUp");
         } else if (s_pivot.getGoal() == -15) {
-          s_pivot.setGoal(30);
+          s_pivot.setGoal(50);
           Logger.recordOutput(loggingPrefix + "changing", "down");
         } else {
           s_pivot.setGoal(-15);

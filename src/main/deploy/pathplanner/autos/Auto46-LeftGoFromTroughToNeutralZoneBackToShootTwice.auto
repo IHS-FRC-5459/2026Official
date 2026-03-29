@@ -39,19 +39,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Auto9-GoFromLeftNeutralZoneBackToShoot"
+                        "pathName": "Copy of Copy of Auto9-GoFromLeftNeutralZoneBackToShoot"
                       }
                     }
                   ]
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorUp"
           }
         },
         {
@@ -99,27 +93,79 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Auto8-ShootGoToRightClimb"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Auto46-ShootToNeutralZone"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Copy of Auto9-GoFromLeftNeutralZoneBackToShoot"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "hubAlign"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "disableOtherCams"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Auto22-GoFromRightClimbPositionToClimb"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorDown"
+            "name": "IntakeDown"
           }
         }
       ]

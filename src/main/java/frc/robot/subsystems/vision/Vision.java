@@ -55,6 +55,7 @@ public class Vision extends SubsystemBase {
     for (int i = 0; i < inputs.length; i++) {
       inputs[i] = new VisionIOInputsAutoLogged();
       SmartDashboard.putBoolean("Cam" + Integer.toString(i) + "Connected", true);
+      Logger.recordOutput("Cam" + Integer.toString(i) + "Connected", true);
     }
 
     // Initialize disconnected alerts
@@ -113,7 +114,7 @@ public class Vision extends SubsystemBase {
       // Update disconnected alert
       disconnectedAlerts[cameraIndex].set(!inputs[cameraIndex].connected);
       SmartDashboard.putBoolean("Cam" + cameraIndex + "Connected", inputs[cameraIndex].connected);
-
+      Logger.recordOutput("Cam" + cameraIndex + "Connected", inputs[cameraIndex].connected);
       // Initialize logging values
       List<Pose3d> tagPoses = new LinkedList<>();
       List<Pose3d> robotPoses = new LinkedList<>();
