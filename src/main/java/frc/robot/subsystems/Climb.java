@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.*;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -64,7 +63,7 @@ public class Climb extends SubsystemBase {
   }
 
   public void setGoal(double goal) {
-    m_controller.setGoal(goal);
+    // m_controller.setGoal(goal);
     this.goal = goal;
     Logger.recordOutput(loggingPrefix + "goal", goal);
   }
@@ -81,9 +80,9 @@ public class Climb extends SubsystemBase {
         sign = -1;
       }
       if (!SmartDashboard.getBoolean("elevatorManualControl", false)) {
-        setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
+        // setVoltage(MathUtil.clamp(Math.abs(volts), 0.75, 12) * sign);
       } else {
-        setVoltage(-2);
+        // setVoltage(-2);
       }
 
       // if (getEncoderDistance() < getGoal()) { // Go up, too low
@@ -95,12 +94,12 @@ public class Climb extends SubsystemBase {
       // }
     } else {
       // Logger.recordOutput(loggingPrefix + "condition", 3);
-      setVoltage(0);
+      // setVoltage(0);
     }
   }
 
   public void setVoltage(double volts) {
-    motor.setVoltage(volts);
+    // motor.setVoltage(volts);
     Logger.recordOutput(loggingPrefix + "volts", volts);
   }
 
@@ -123,7 +122,7 @@ public class Climb extends SubsystemBase {
     //     hasStoppedElevator = true;
     //   }
     // }
-    updateMotorOutput();
+    // updateMotorOutput();
     // motor.setVoltagce(-1);
     // setGoal(SmartDashboard.getNumber("elevatorGoal", 0));
     Logger.recordOutput(loggingPrefix + "goal", getGoal());
