@@ -271,7 +271,7 @@ public class RobotContainer {
             new InstantCommand(
                 () -> {
                   s_pivot.setGoal(90);
-                })); // pIOT UP
+                })); // PIVOT UP
     operator.back().whileTrue(new ReverseIntake(s_intake));
     // operator
     //     .povLeft()
