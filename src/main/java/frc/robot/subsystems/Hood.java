@@ -81,7 +81,7 @@ public class Hood extends SubsystemBase {
   }
 
   public boolean isAtSetpoint() {
-    return Math.abs(getGoal() - getEncoderDeg()) < 3;
+    return true; // Math.abs(getGoal() - getEncoderDeg()) < 3;
   }
 
   @Override

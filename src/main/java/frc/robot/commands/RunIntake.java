@@ -15,6 +15,7 @@ public class RunIntake extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_intake);
     this.s_intake = s_intake;
+    // SmartDashboard.putNumber("intakePower", 0.42);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +27,7 @@ public class RunIntake extends Command {
   @Override
   public void execute() {
     // s_intake.setSpeed(SmartDashboard.getNumber("intakePower", 0));
-    s_intake.setSpeed(0.42);
+    s_intake.setSpeed(1);
   }
 
   // Called once the command ends or is interrupted.

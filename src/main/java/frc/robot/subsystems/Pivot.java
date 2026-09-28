@@ -71,7 +71,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public double getEncoderDist() {
-    return (pivotEncoder.getDistance()) + 90;
+    return -1 * (pivotEncoder.getDistance()) + 90;
   }
 
   public double getEncoderRadians() {
